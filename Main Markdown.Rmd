@@ -44,7 +44,239 @@ Q2022 <- read_csv("vehicle-fuel-type-count-by-zip-code-2022 (1).csv")
 xxx briefly summarize what we do in this part
 
 ```{r}
-123455
+#Find and combine vehicle numbers from different year data set and categorize with different fuel
+
+Q2018$Vehicles <- as.numeric(Q2018$Vehicles)
+unique(Q2018$Fuel)
+sum(Q2018[which(Q2018$Fuel =="Gasoline"), 7])
+sum(Q2018[which(Q2018$Fuel =="Diesel and Diesel Hybrid"), 7])
+sum(Q2018[which(Q2018$Fuel =="Natural Gas"), 7])
+sum(Q2018[which(Q2018$Fuel =="Hybrid Gasoline"), 7])
+sum(Q2018[which(Q2018$Fuel =="Flex-Fuel"), 7])
+sum(Q2018[which(Q2018$Fuel =="Battery Electric"), 7])
+sum(Q2018[which(Q2018$Fuel =="Other"), 7])
+sum(Q2018[which(Q2018$Fuel =="Plug-in Hybrid"), 7])
+sum(Q2018[which(Q2018$Fuel =="Hydrogen Fuel Cell"), 7])
+
+Q2020$Vehicles <- as.numeric(Q2020$Vehicles)
+sum(Q2020[which(Q2020$Fuel =="Gasoline"), 7])
+sum(Q2020[which(Q2020$Fuel =="Diesel and Diesel Hybrid"), 7])
+sum(Q2020[which(Q2020$Fuel =="Natural Gas"), 7])
+sum(Q2020[which(Q2020$Fuel =="Hybrid Gasoline"), 7])
+sum(Q2020[which(Q2020$Fuel =="Flex-Fuel"), 7])
+sum(Q2020[which(Q2020$Fuel =="Battery Electric"), 7])
+sum(Q2020[which(Q2020$Fuel =="Other"), 7])
+sum(Q2020[which(Q2020$Fuel =="Plug-in Hybrid"), 7])
+sum(Q2020[which(Q2020$Fuel =="Hydrogen Fuel Cell"), 7])
+
+Q2021$Vehicles <- as.numeric(Q2021$Vehicles)
+sum(Q2021[which(Q2021$Fuel =="Gasoline"), 7])
+sum(Q2021[which(Q2021$Fuel =="Diesel and Diesel Hybrid"), 7])
+sum(Q2021[which(Q2021$Fuel =="Natural Gas"), 7])
+sum(Q2021[which(Q2021$Fuel =="Hybrid Gasoline"), 7])
+sum(Q2021[which(Q2021$Fuel =="Flex-Fuel"), 7])
+sum(Q2021[which(Q2021$Fuel =="Battery Electric"), 7])
+sum(Q2021[which(Q2021$Fuel =="Other"), 7])
+sum(Q2021[which(Q2021$Fuel =="Plug-in Hybrid"), 7])
+sum(Q2021[which(Q2021$Fuel =="Hydrogen Fuel Cell"), 7])
+
+Q2022$Vehicles <- as.numeric(Q2022$Vehicles)
+sum(Q2022[which(Q2022$Fuel =="Gasoline"), 7])
+sum(Q2022[which(Q2022$Fuel =="Diesel and Diesel Hybrid"), 7])
+sum(Q2022[which(Q2022$Fuel =="Natural Gas"), 7])
+sum(Q2022[which(Q2022$Fuel =="Hybrid Gasoline"), 7])
+sum(Q2022[which(Q2022$Fuel =="Flex-Fuel"), 7])
+sum(Q2022[which(Q2022$Fuel =="Battery Electric"), 7])
+sum(Q2022[which(Q2022$Fuel =="Other"), 7])
+sum(Q2022[which(Q2022$Fuel =="Plug-in Hybrid"), 7])
+sum(Q2022[which(Q2022$Fuel =="Hydrogen Fuel Cell"), 7])
+
+#I used Q2018 data for both Y2018 and Y2019 since it was collected in October and others were collected in January
+VehicleNumber.Fuel <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
+                                 Gasoline = c("26978798", "26978798", "26985319", "25253808","26313272"),
+                                 Diesel_Diesel_Hybrid = c("1282387", "1282387", "1271338", "1199349", "1306851"),
+                                 Natural_Gas = c("34982", "34982", "29096", "10881", "31403"),
+                                 Hybrid_Gasoline = c("1079558", "1079558", "1123090", "1181387", "1299331"),
+                                 Flex_Fuel = c("1318691", "1318691", "1257292", "1259789", "1246662"),
+                                 Battery_Electric = c("226614", "226614", "306803", "374865", "526266"),
+                                 Other = c("7824", "7824", "5867", "47847", "3801"),
+                                 Plug_in_Hybrid = c("204002", "204002", "248388", "264112", "305526"),
+                                 Hydrogen_Fuel_Cell = c("5138", "5138", "6648", "7481", "10129"))
+
+#Heavy or light duty in each fuel
+#Gasoline
+Q2018.gasoline <- 
+  Q2018 %>%
+  filter(Fuel == "Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2018.gasoline[which(Q2018.gasoline$Duty =="Light"), 3])
+sum(Q2018.gasoline[which(Q2018.gasoline$Duty =="Heavy"), 3])
+
+Q2020.gasoline <- 
+  Q2020 %>%
+  filter(Fuel == "Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2020.gasoline[which(Q2020.gasoline$Duty =="Light"), 3])
+sum(Q2020.gasoline[which(Q2020.gasoline$Duty =="Heavy"), 3])
+
+Q2021.gasoline <- 
+  Q2021 %>%
+  filter(Fuel == "Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2021.gasoline[which(Q2021.gasoline$Duty =="Light"), 3])
+sum(Q2021.gasoline[which(Q2021.gasoline$Duty =="Heavy"), 3])
+
+Q2022.gasoline <- 
+  Q2022 %>%
+  filter(Fuel == "Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2022.gasoline[which(Q2022.gasoline$Duty =="Light"), 3])
+sum(Q2022.gasoline[which(Q2022.gasoline$Duty =="Heavy"), 3])
+
+GasolineVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
+                                   Heavy = c("292958", "292958", "295136", "261439", "265796"),
+                                   Light = c("26685840", "26685840", "26690183", "23661814", "24741892"))
+
+#Diesel and Diesel Hybrid
+Q2018.diesel <- 
+  Q2018 %>%
+  filter(Fuel == "Diesel and Diesel Hybrid") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2018.diesel[which(Q2018.diesel$Duty =="Light"), 3])
+sum(Q2018.diesel[which(Q2018.diesel$Duty =="Heavy"), 3])
+
+Q2020.diesel <- 
+  Q2020 %>%
+  filter(Fuel == "Diesel and Diesel Hybrid") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2020.diesel[which(Q2020.diesel$Duty =="Light"), 3])
+sum(Q2020.diesel[which(Q2020.diesel$Duty =="Heavy"), 3])
+
+Q2021.diesel <- 
+  Q2021 %>%
+  filter(Fuel == "Diesel and Diesel Hybrid") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2021.diesel[which(Q2021.diesel$Duty =="Light"), 3])
+sum(Q2021.diesel[which(Q2021.diesel$Duty =="Heavy"), 3])
+
+Q2022.diesel <- 
+  Q2022 %>%
+  filter(Fuel == "Diesel and Diesel Hybrid") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2022.diesel[which(Q2022.diesel$Duty =="Light"), 3])
+sum(Q2022.diesel[which(Q2022.diesel$Duty =="Heavy"), 3])
+
+DieselVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
+                                   Heavy = c("704568", "704568", "694293", "616207", "702098"),
+                                   Light = c("577819", "577819", "577045", "541294", "554805"))
+
+#Natural Gas
+Q2018.naturalgas <- 
+  Q2018 %>%
+  filter(Fuel == "Natural Gas") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2018.naturalgas[which(Q2018.naturalgas$Duty =="Light"), 3])
+sum(Q2018.naturalgas[which(Q2018.naturalgas$Duty =="Heavy"), 3])
+
+Q2020.naturalgas <- 
+  Q2020 %>%
+  filter(Fuel == "Natural Gas") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2020.naturalgas[which(Q2020.naturalgas$Duty =="Light"), 3])
+sum(Q2020.naturalgas[which(Q2020.naturalgas$Duty =="Heavy"), 3])
+
+Q2021.naturalgas <- 
+  Q2021 %>%
+  filter(Fuel == "Natural Gas") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2021.naturalgas[which(Q2021.naturalgas$Duty =="Light"), 3])
+sum(Q2021.naturalgas[which(Q2021.naturalgas$Duty =="Heavy"), 3])
+
+Q2022.naturalgas <- 
+  Q2022 %>%
+  filter(Fuel == "Natural Gas") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2022.naturalgas[which(Q2022.naturalgas$Duty =="Light"), 3])
+sum(Q2022.naturalgas[which(Q2022.naturalgas$Duty =="Heavy"), 3])
+
+NaturalGasVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
+                                   Heavy = c("20455", "20455", "17211", "2042", "22265"),
+                                   Light = c("14527", "14527", "11885", "7558", "7738"))
+
+
+#Hybrid Gasoline
+Q2018.hybridgas <- 
+  Q2018 %>%
+  filter(Fuel == "Hybrid Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2018.hybridgas[which(Q2018.hybridgas$Duty =="Light"), 3])
+sum(Q2018.hybridgas[which(Q2018.hybridgas$Duty =="Heavy"), 3])
+
+Q2020.hybridgas <- 
+  Q2020 %>%
+  filter(Fuel == "Hybrid Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2020.hybridgas[which(Q2020.hybridgas$Duty =="Light"), 3])
+sum(Q2020.hybridgas[which(Q2020.hybridgas$Duty =="Heavy"), 3])
+
+Q2021.hybridgas <- 
+  Q2021 %>%
+  filter(Fuel == "Hybrid Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2021.hybridgas[which(Q2021.hybridgas$Duty =="Light"), 3])
+sum(Q2021.hybridgas[which(Q2021.hybridgas$Duty =="Heavy"), 3])
+
+Q2022.hybridgas <- 
+  Q2022 %>%
+  filter(Fuel == "Hybrid Gasoline") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2022.hybridgas[which(Q2022.hybridgas$Duty =="Light"), 3])
+sum(Q2022.hybridgas[which(Q2022.hybridgas$Duty =="Heavy"), 3])
+
+HybridGasVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
+                                   Heavy = c("0", "0", "0", "122", "117"),
+                                   Light = c("1079558", "1079558", "1123090", "1180332", "1282219"))
+
+#Flex-Fuel
+Q2018.flexfuel <- 
+  Q2018 %>%
+  filter(Fuel == "Flex-Fuel") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2018.flexfuel[which(Q2018.flexfuel$Duty =="Light"), 3])
+sum(Q2018.flexfuel[which(Q2018.flexfuel$Duty =="Heavy"), 3])
+
+Q2020.flexfuel <- 
+  Q2020 %>%
+  filter(Fuel == "Flex-Fuel") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2020.flexfuel[which(Q2020.flexfuel$Duty =="Light"), 3])
+sum(Q2020.flexfuel[which(Q2020.flexfuel$Duty =="Heavy"), 3])
+
+Q2021.flexfuel <- 
+  Q2021 %>%
+  filter(Fuel == "Flex-Fuel") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2021.flexfuel[which(Q2021.flexfuel$Duty =="Light"), 3])
+sum(Q2021.flexfuel[which(Q2021.flexfuel$Duty =="Heavy"), 3])
+
+Q2022.flexfuel <- 
+  Q2022 %>%
+  filter(Fuel == "Flex-Fuel") %>%
+  select(Fuel, Duty, Vehicles)
+sum(Q2022.flexfuel[which(Q2022.flexfuel$Duty =="Light"), 3])
+sum(Q2022.flexfuel[which(Q2022.flexfuel$Duty =="Heavy"), 3])
+
+FlexFuelVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
+                                   Heavy = c("28625", "28625", "30495", "35234", "36645"),
+                                   Light = c("1290066", "1290066", "1226797", "1010212", "995624"))
+
+view(GasolineVehicle.Duty)
+view(DieselVehicle.Duty)
+view(HybridGasVehicle.Duty)
+view(NaturalGasVehicle.Duty)
+view(FlexFuelVehicle.Duty)
+
+
 ```
 
 ## Analysis
