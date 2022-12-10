@@ -25,18 +25,18 @@ mytheme <- theme_classic() +
 theme_set(mytheme)
 
 #Import the emission dataset 
-carbon <- read.csv("/Users/yxtian/Desktop/Carbon.csv", stringsAsFactors = TRUE)
+carbon <- read.csv("Carbon.csv", stringsAsFactors = TRUE)
 
-nitrogen <- read.csv("/Users/yxtian/Desktop/Nitrogen.csv", stringsAsFactors = TRUE)
+nitrogen <- read.csv("Nitrogen.csv", stringsAsFactors = TRUE)
 
 #Import the car quantity dataset
-Q2018 <- read.csv("/Users/yxtian/Desktop/vehicle-fuel-type-count-by-zip-code.csv", stringsAsFactors = TRUE)
+Q2018 <- read.csv("vehicle-fuel-type-count-by-zip-code.csv", stringsAsFactors = TRUE)
 
-Q2020 <- read.csv("/Users/yxtian/Desktop/vehicle-count-as-of-1-1-2020.csv", stringsAsFactors = TRUE)
+Q2020 <- read.csv("vehicle-count-as-of-1-1-2020.csv", stringsAsFactors = TRUE)
 
-Q2021 <- read.csv("/Users/yxtian/Desktop/vehicle-fuel-type-count-by-zip-code-2021.csv", stringsAsFactors = TRUE)
+Q2021 <- read.csv("vehicle-fuel-type-count-by-zip-code-2021.csv", stringsAsFactors = TRUE)
   
-Q2022 <- read.csv("/Users/yxtian/Desktop/vehicle-fuel-type-count-by-zip-code-2022.csv", stringsAsFactors = TRUE)
+Q2022 <- read_csv("vehicle-fuel-type-count-by-zip-code-2022 (1).csv")
 ```
 
 ## Clean up the dataset
