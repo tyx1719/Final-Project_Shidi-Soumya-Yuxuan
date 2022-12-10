@@ -270,6 +270,7 @@ FlexFuelVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "202
                                    Heavy = c("28625", "28625", "30495", "35234", "36645"),
                                    Light = c("1290066", "1290066", "1226797", "1010212", "995624"))
 
+view(VehicleNumber.Fuel)
 view(GasolineVehicle.Duty)
 view(DieselVehicle.Duty)
 view(HybridGasVehicle.Duty)
