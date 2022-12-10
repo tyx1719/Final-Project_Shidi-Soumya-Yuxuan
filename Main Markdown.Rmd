@@ -4,27 +4,57 @@ author: "Dai, Mathew, Tian"
 date: '2022-12-10'
 output: pdf_document
 ---
-
+##Project set up
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=60), tidy=TRUE)
+
+#Load the packages
+getwd()
+library(tidyverse)
+library(lubridate)
+library(trend)
+#install.packages("zoo")
+library(zoo)
+options(scipen = 4)
+
+# Set theme
+mytheme <- theme_classic() +
+  theme(axis.text = element_text(color = "black"), 
+        legend.position = "top")
+theme_set(mytheme)
+
+#Import the emission dataset 
+carbon <- read.csv("/Users/yxtian/Desktop/Carbon.csv", stringsAsFactors = TRUE)
+
+nitrogen <- read.csv("/Users/yxtian/Desktop/Nitrogen.csv", stringsAsFactors = TRUE)
+
+#Import the car quantity dataset
+Q2018 <- read.csv("/Users/yxtian/Desktop/vehicle-fuel-type-count-by-zip-code.csv", stringsAsFactors = TRUE)
+
+Q2020 <- read.csv("/Users/yxtian/Desktop/vehicle-count-as-of-1-1-2020.csv", stringsAsFactors = TRUE)
+
+Q2021 <- read.csv("/Users/yxtian/Desktop/vehicle-fuel-type-count-by-zip-code-2021.csv", stringsAsFactors = TRUE)
+  
+Q2022 <- read.csv("/Users/yxtian/Desktop/vehicle-fuel-type-count-by-zip-code-2022.csv", stringsAsFactors = TRUE)
 ```
 
-## R Markdown
+## Clean up the dataset
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+xxx briefly summarize what we do in this part
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r}
 
-```{r cars}
-summary(cars)
 ```
 
-## Including Plots
+## Analysis
+regression (explain the results)
+add some visualization in this part
 
-You can also embed plots, for example:
+```{r, echo=FALSE}
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+
+
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
