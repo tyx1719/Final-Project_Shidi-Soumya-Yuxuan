@@ -214,8 +214,8 @@ sum(Q2022.naturalgas[which(Q2022.naturalgas$Duty =="Light"), 3])
 sum(Q2022.naturalgas[which(Q2022.naturalgas$Duty =="Heavy"), 3])
 
 NaturalGasVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
-                                   Heavy = c("20455", "20455", "17211", "2042", "22265"),
-                                   Light = c("14527", "14527", "11885", "7558", "7738"))
+                                   Heavy = c("20455", "20455", "17211", "7558", "22265"),
+                                   Light = c("14527", "14527", "11885", "2042", "7738"))
 
 
 #Hybrid Gasoline
