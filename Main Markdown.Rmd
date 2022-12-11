@@ -318,7 +318,9 @@ FlexFuelVehicle.Duty_a <- FlexFuelVehicle.Duty %>%
   mutate(Light = as.numeric(Light))
 
 Master_table_vehicles <- rbind(GasolineVehicle.Duty_a,DieselVehicle.Duty_a,HybridGasVehicle.Duty_a,NaturalGasVehicle.Duty_a,FlexFuelVehicle.Duty_a) %>%
-  mutate(Total_vehicle = as.numeric(Light) + as.numeric(Heavy) )
+  mutate(Total_vehicle = as.numeric(Light) + as.numeric(Heavy) ) %>%
+  mutate(Share_Light = Light/Total_vehicle) %>%
+  mutate(Share_Heavy = Heavy/Total_vehicle)
 
 #Emission Data cleaning: select only on-road vehicles
 Carbon.Monoxide <- carbon [carbon$CATEGORY == "ON-ROAD MOTOR VEHICLES", ]
@@ -455,23 +457,23 @@ Master_table_vehicles_wogasoline <- subset (Master_table_vehicles, Fuel_Type != 
 Master_table_vehicles_onlygasoline <- subset (Master_table_vehicles, Fuel_Type == "Gasoline")
 
 #Heavy vehicle trend over time
-ggplot(Master_table_vehicles, aes(x=Year,y=Heavy,group=Fuel_Type,color=Fuel_Type))+
+ggplot(Master_table_vehicles, aes(x=Year,y=Share_Heavy,group=Fuel_Type,color=Fuel_Type))+
   geom_point()+
   geom_line()+
   xlab("Year")+
-  ylab("Heavy Vehicle Quantity")+
+  ylab("Share of Heavy Vehicle")+
   theme(legend.position = "right")+
   labs(color="Type of vehicles")
 
 #Light vehicle trend over time
-ggplot(Master_table_vehicles, aes(x=Year,y=Light,group=Fuel_Type,color=Fuel_Type))+
+ggplot(Master_table_vehicles, aes(x=Year,y=Share_Light,group=Fuel_Type,color=Fuel_Type))+
   geom_point()+
   geom_line()+
   xlab("Year")+
-  ylab("Light Vehicle Quantity")+
+  ylab("Share of Light Vehicle")+
   theme(legend.position = "right")+
   labs(color="Type of vehicles")
-Master_table_vehicles
+
 
 ###PART2
 #carbon and nitrogen
