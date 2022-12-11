@@ -17,10 +17,19 @@ library(trend)
 #install.packages("zoo")
 library(zoo)
 options(scipen = 4)
+
 install.packages("reshape2")
 library(reshape2)
+
 install.packages("reshape")
 library(reshape)
+
+install.packages("zipcodeR")
+library(zipcodeR)
+
+install.packages("maps")
+library(maps)
+
 
 # Set theme
 mytheme <- theme_classic() +
@@ -34,7 +43,6 @@ carbon <- read.csv("Carbon_Monoxide.csv", stringsAsFactors = TRUE)
 nitrogen <- read.csv("Nitrogen_Oxide.csv", stringsAsFactors = TRUE)
 
 #Import the car quantity dataset
-Q2018_delete <- read.csv("vehicle-fuel-type-count-by-zip-code.csv", stringsAsFactors = TRUE)
 
 Q2018 <- read.csv("vehicle-fuel-type-count-by-zip-code.csv", stringsAsFactors = TRUE)
 
@@ -283,6 +291,34 @@ view(HybridGasVehicle.Duty)
 view(NaturalGasVehicle.Duty)
 view(FlexFuelVehicle.Duty)
 
+#Creating Master Table for Vehicle data
+GasolineVehicle.Duty_a <- GasolineVehicle.Duty %>%
+  mutate(Fuel_Type = rep("Gasoline",5)) %>%
+  mutate(Heavy = as.numeric(Heavy)) %>%
+  mutate(Light = as.numeric(Light))
+
+DieselVehicle.Duty_a <- DieselVehicle.Duty %>%
+  mutate(Fuel_Type = rep("Diesel",5)) %>%
+ mutate(Heavy = as.numeric(Heavy)) %>%
+  mutate(Light = as.numeric(Light))
+
+HybridGasVehicle.Duty_a <- HybridGasVehicle.Duty %>%
+  mutate(Fuel_Type = rep("Hybrid Gas",5)) %>%
+ mutate(Heavy = as.numeric(Heavy)) %>%
+  mutate(Light = as.numeric(Light))
+
+NaturalGasVehicle.Duty_a <- NaturalGasVehicle.Duty %>%
+  mutate(Fuel_Type = rep("Natural Gas",5)) %>%
+ mutate(Heavy = as.numeric(Heavy)) %>%
+  mutate(Light = as.numeric(Light))
+
+FlexFuelVehicle.Duty_a <- FlexFuelVehicle.Duty %>%
+  mutate(Fuel_Type = rep("Flex Fuel",5)) %>%
+ mutate(Heavy = as.numeric(Heavy)) %>%
+  mutate(Light = as.numeric(Light))
+
+Master_table_vehicles <- rbind(GasolineVehicle.Duty_a,DieselVehicle.Duty_a,HybridGasVehicle.Duty_a,NaturalGasVehicle.Duty_a,FlexFuelVehicle.Duty_a) %>%
+  mutate(Total_vehicle = as.numeric(Light) + as.numeric(Heavy) )
 
 #Emission Data cleaning: select only on-road vehicles
 Carbon.Monoxide <- carbon [carbon$CATEGORY == "ON-ROAD MOTOR VEHICLES", ]
@@ -359,6 +395,17 @@ NOX.heavy <-
   NOX %>%
   select(c(1, 6:13, 15, 16))
 
+
+#Change the Year column in COT and NOX datasets for plot use
+COT.diesel$Year <- c(2018,2019,2020,2021,2022)
+COT.gas$Year <- c(2018,2019,2020,2021,2022)
+COT.heavy$Year <- c(2018,2019,2020,2021,2022)
+COT.light$Year <- c(2018,2019,2020,2021,2022)
+NOX.diesel$Year <- c(2018,2019,2020,2021,2022)
+NOX.gas$Year <- c(2018,2019,2020,2021,2022)
+NOX.heavy$Year <- c(2018,2019,2020,2021,2022)
+NOX.light$Year <- c(2018,2019,2020,2021,2022)
+
 ```
 
 ## Analysis
@@ -371,9 +418,11 @@ NOX.heavy <-
    combine diesel/carbon
    light duty/ heavy duty
    y = beta0 + beta1 x + error term
-4. Map (using zipcode)
+4.Something else
 
 ```{r, echo=FALSE}
+#############Trend Analysis#############
+###PART 1
 #Number changes over the years
 ds1 <- melt(VehicleNumber.Fuel,id="Year")
 ds1$value <- as.numeric(ds1$value)
@@ -398,6 +447,133 @@ ggplot(ds1_sub2, aes(x=Year,y=value,group=variable,color=variable))+
   ylab("Quantity")+
   theme(legend.position = "right")+
   labs(color="Type of vehicles")
+
+#trend of heavy and light duty cars over time
+
+Master_table_vehicles_wogasoline <- subset (Master_table_vehicles, Fuel_Type != "Gasoline")
+
+Master_table_vehicles_onlygasoline <- subset (Master_table_vehicles, Fuel_Type == "Gasoline")
+
+#Heavy vehicle trend over time
+ggplot(Master_table_vehicles, aes(x=Year,y=Heavy,group=Fuel_Type,color=Fuel_Type))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Heavy Vehicle Quantity")+
+  theme(legend.position = "right")+
+  labs(color="Type of vehicles")
+
+#Light vehicle trend over time
+ggplot(Master_table_vehicles, aes(x=Year,y=Light,group=Fuel_Type,color=Fuel_Type))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Light Vehicle Quantity")+
+  theme(legend.position = "right")+
+  labs(color="Type of vehicles")
+Master_table_vehicles
+
+###PART2
+#carbon and nitrogen
+#NOX.diesel
+ds2_d <- melt(NOX.diesel,id="Year")
+ds2_d$value <- as.numeric(ds2_d$value)
+ggplot(ds2_d, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#NOX.gas
+ds2_g <- melt(NOX.gas,id="Year")
+ds2_g$value <- as.numeric(ds2_g$value)
+ggplot(ds2_g, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#NOX.light
+ds2_l <- melt(NOX.light,id="Year")
+ds2_l$value <- as.numeric(ds2_l$value)
+ggplot(ds2_l, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#NOX.heavy
+ds2_h <- melt(NOX.heavy,id="Year")
+ds2_h$value <- as.numeric(ds2_h$value)
+ggplot(ds2_h, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#COT
+#COT.diesel
+ds3_d <- melt(COT.diesel,id="Year")
+ds3_d$value <- as.numeric(ds3_d$value)
+ggplot(ds3_d, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#COT.gas
+ds3_g <- melt(COT.gas,id="Year")
+ds3_g$value <- as.numeric(ds3_g$value)
+ggplot(ds3_g, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#COT.light
+ds3_l <- melt(COT.light,id="Year")
+ds3_l$value <- as.numeric(ds3_l$value)
+ggplot(ds3_l, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#COT.heavy
+ds3_h <- melt(COT.heavy,id="Year")
+ds3_h$value <- as.numeric(ds3_h$value)
+ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles")
+
+#############Regression Analysis#############
+# car quantity and emission
+
+
+
+
+
+
+
+
 
 ```
 
