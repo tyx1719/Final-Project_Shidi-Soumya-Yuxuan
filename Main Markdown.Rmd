@@ -17,6 +17,7 @@ library(trend)
 #install.packages("zoo")
 library(zoo)
 options(scipen = 4)
+library(reshape2)
 
 # Set theme
 mytheme <- theme_classic() +
@@ -277,16 +278,45 @@ view(HybridGasVehicle.Duty)
 view(NaturalGasVehicle.Duty)
 view(FlexFuelVehicle.Duty)
 
-
 ```
 
 ## Analysis
-regression (explain the results)
-add some visualization in this part
+1. Trend analysis: The quantity of different types of cars changes over the years (two graphs)
+   add some description of the graph (like: which type has an obvious drop at what year)
+2. Trend analysis: The emission changes over the years (carbon and nitrogen)
+   add a paragraph, why we choose these two pollutant
+   Ideally two graphs here
+3. Regression analysis:
+   combine diesel/carbon
+   light duty/ heavy duty
+   y = beta0 + beta1 x + error term
+4. Map (using zipcode)
 
 ```{r, echo=FALSE}
+#Number changes over the years
+ds1 <- melt(VehicleNumber.Fuel,id="Year")
+ds1$value <- as.numeric(ds1$value)
+ds1_sub <- subset (ds1, variable != "Gasoline")
+ds1_sub2 <- subset (ds1, variable == "Gasoline")
 
-12345
+#plot #of cars changes over the years (Without gasoline)
+ggplot(ds1_sub, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Quantity")+
+  theme(legend.position = "right")+
+  labs(color="Type of vehicles")
+
+#plot #of cars changes over the years (Only gasoline)
+#ps. Due to the quantity of gasoline cars is too large, we seperate it as an independent graph to present the quantity changes
+ggplot(ds1_sub2, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Quantity")+
+  theme(legend.position = "right")+
+  labs(color="Type of vehicles")
 
 ```
 
