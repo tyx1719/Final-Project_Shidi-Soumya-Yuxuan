@@ -14,27 +14,14 @@ getwd()
 library(tidyverse)
 library(lubridate)
 library(trend)
-#install.packages("zoo")
 library(zoo)
-options(scipen = 4)
-
-install.packages("reshape2")
 library(reshape2)
-
-install.packages("reshape")
 library(reshape)
-
-install.packages("zipcodeR")
-library(zipcodeR)
-
-install.packages("maps")
-library(maps)
-
 
 # Set theme
 mytheme <- theme_classic() +
   theme(axis.text = element_text(color = "black"), 
-        legend.position = "top")
+        legend.position = "right")
 theme_set(mytheme)
 
 #Import the emission dataset 
@@ -568,14 +555,48 @@ ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
 
 #############Regression Analysis#############
 # car quantity and emission
+#COT.diesel
+COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)` <- as.numeric(COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`)
+COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)` <- as.numeric(COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`)
+COT.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)` <- as.numeric(COT.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`)
+COT.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)` <- as.numeric(COT.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)`)
+COT.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)` <- as.numeric(COT.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`)
+COT.diesel$`SCHOOL BUSES - DIESEL (SBD)` <- as.numeric(COT.diesel$`SCHOOL BUSES - DIESEL (SBD)`)
+COT.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)` <- as.numeric(COT.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)`)
+COT.diesel$`ALL OTHER BUSES - DIESEL (OBD)` <- as.numeric(COT.diesel$`ALL OTHER BUSES - DIESEL (OBD)`)
 
+COT.diesel$sum <- COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`+COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`+COT.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`+COT.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)`+COT.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`+COT.diesel$`SCHOOL BUSES - DIESEL (SBD)`+COT.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)`+COT.diesel$`ALL OTHER BUSES - DIESEL (OBD)`
 
+#COT.gas
+COT.gas$`LIGHT DUTY PASSENGER (LDA)` <- as.numeric(COT.gas$`LIGHT DUTY PASSENGER (LDA)`)
+COT.gas$`LIGHT DUTY TRUCKS - 1 (LDT1)` <- as.numeric (COT.gas$`LIGHT DUTY TRUCKS - 1 (LDT1)`)
+COT.gas$`LIGHT DUTY TRUCKS - 2 (LDT2)` <- as.numeric (COT.gas$`LIGHT DUTY TRUCKS - 2 (LDT2)`)
+COT.gas$`MEDIUM DUTY TRUCKS (MDV)`<- as.numeric (COT.gas$`MEDIUM DUTY TRUCKS (MDV)`)
+COT.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)` <- as.numeric(COT.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)`)
+COT.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)` <- as.numeric(COT.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)`)
+COT.gas$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)` <- as.numeric(COT.gas$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)`)
+COT.gas$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)` <- as.numeric(COT.gas$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)`)
+COT.gas$`MOTORCYCLES (MCY)` <-as.numeric(COT.gas$`MOTORCYCLES (MCY)`)
+COT.gas$`HEAVY DUTY GAS URBAN BUSES (UBG)` <- as.numeric(COT.gas$`HEAVY DUTY GAS URBAN BUSES (UBG)`)
+COT.gas$`SCHOOL BUSES - GAS (SBG)`<-as.numeric(COT.gas$`SCHOOL BUSES - GAS (SBG)`)
+COT.gas$`OTHER BUSES - GAS (OBG)` <-as.numeric(COT.gas$`OTHER BUSES - GAS (OBG)`)
+COT.gas$`MOTOR HOMES (MH)`<-as.numeric(COT.gas$`MOTOR HOMES (MH)`)
 
+COT.gas$sum <- COT.gas$`LIGHT DUTY PASSENGER (LDA)`+COT.gas$`LIGHT DUTY TRUCKS - 1 (LDT1)` +COT.gas$`LIGHT DUTY TRUCKS - 2 (LDT2)`+COT.gas$`MEDIUM DUTY TRUCKS (MDV)`+COT.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)`+COT.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)` +COT.gas$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)`+COT.gas$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)` +COT.gas$`MOTORCYCLES (MCY)`+COT.gas$`HEAVY DUTY GAS URBAN BUSES (UBG)`+COT.gas$`SCHOOL BUSES - GAS (SBG)`+COT.gas$`OTHER BUSES - GAS (OBG)`+COT.gas$`MOTOR HOMES (MH)`
 
+ds4 <- data.frame(COT.diesel$Year,COT.diesel$sum,VehicleNumber.Fuel$Diesel_Diesel_Hybrid,COT.gas$sum,VehicleNumber.Fuel$Gasoline)
+ds4$Quantity.diesel <-ds4$VehicleNumber.Fuel.Diesel_Diesel_Hybrid
+ds4$Emission.diesel <-ds4$COT.diesel.sum
+ds4$Quantity.gas <-ds4$VehicleNumber.Fuel.Gasoline
+ds4$Emission.gas <-ds4$COT.gas.sum
 
+reg1 <- lm(ds4$Emission.diesel~ds4$Quantity.diesel)
+print(reg1)
+reg2 <- lm(ds4$Emission.gas~ds4$Quantity.gas)
+print(reg2)
 
-
-
+#Question here, I don't whether it is appropriate to use regression here, maybe use some cross group comparison
+#Add more analysis here 
 
 ```
 
