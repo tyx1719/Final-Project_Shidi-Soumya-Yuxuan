@@ -602,6 +602,48 @@ summary(reg2)
 #Coefficient (absolute value) for gas is much higher than diesel, thus gas vehicle produces more COT emission
 
 #NOX here
+#Nox.giesel
+NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)` <- as.numeric(NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`)
+NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)` <- as.numeric(NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`)
+NOX.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)` <- as.numeric(NOX.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`)
+NOX.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)` <- as.numeric(NOX.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)`)
+NOX.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)` <- as.numeric(NOX.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`)
+NOX.diesel$`SCHOOL BUSES - DIESEL (SBD)` <- as.numeric(NOX.diesel$`SCHOOL BUSES - DIESEL (SBD)`)
+NOX.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)` <- as.numeric(NOX.diesel$`ALL OTHER BUSES - DIESEL (OBD)`)
+
+NOX.diesel$sum <- NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`+NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`+NOX.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`+NOX.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)` +NOX.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`+NOX.diesel$`SCHOOL BUSES - DIESEL (SBD)`+NOX.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)`
+
+#NOX.gas
+NOX.gas$`LIGHT DUTY PASSENGER (LDA)` <- as.numeric(NOX.gas$`LIGHT DUTY PASSENGER (LDA)`)
+NOX.gas$`LIGHT DUTY TRUCKS - 1 (LDT1)` <- as.numeric (NOX.gas$`LIGHT DUTY TRUCKS - 1 (LDT1)`)
+NOX.gas$`LIGHT DUTY TRUCKS - 2 (LDT2)` <- as.numeric (NOX.gas$`LIGHT DUTY TRUCKS - 2 (LDT2)`)
+NOX.gas$`MEDIUM DUTY TRUCKS (MDV)`<- as.numeric (NOX.gas$`MEDIUM DUTY TRUCKS (MDV)`)
+NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)` <- as.numeric(NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)`)
+NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)` <- as.numeric(NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)`)
+NOX.gas$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)` <- as.numeric(NOX.gas$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)`)
+NOX.gas$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)` <- as.numeric(NOX.gas$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)`)
+NOX.gas$`MOTORCYCLES (MCY)` <-as.numeric(NOX.gas$`MOTORCYCLES (MCY)`)
+NOX.gas$`HEAVY DUTY GAS URBAN BUSES (UBG)` <- as.numeric(NOX.gas$`HEAVY DUTY GAS URBAN BUSES (UBG)`)
+NOX.gas$`SCHOOL BUSES - GAS (SBG)`<-as.numeric(NOX.gas$`SCHOOL BUSES - GAS (SBG)`)
+NOX.gas$`OTHER BUSES - GAS (OBG)` <-as.numeric(NOX.gas$`OTHER BUSES - GAS (OBG)`)
+NOX.gas$`MOTOR HOMES (MH)`<-as.numeric(NOX.gas$`MOTOR HOMES (MH)`)
+
+NOX.gas$sum <- NOX.gas$`LIGHT DUTY PASSENGER (LDA)`+ NOX.gas$`LIGHT DUTY TRUCKS - 1 (LDT1)`+NOX.gas$`LIGHT DUTY TRUCKS - 2 (LDT2)`+ NOX.gas$`MEDIUM DUTY TRUCKS (MDV)`+NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)`+NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)`+ NOX.gas$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)`+ NOX.gas$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)`+ NOX.gas$`MOTORCYCLES (MCY)`+NOX.gas$`HEAVY DUTY GAS URBAN BUSES (UBG)`+NOX.gas$`SCHOOL BUSES - GAS (SBG)`+NOX.gas$`OTHER BUSES - GAS (OBG)`+NOX.gas$`MOTOR HOMES (MH)`
+
+ds5 <- data.frame(NOX.diesel$Year,NOX.diesel$sum,VehicleNumber.Fuel$Diesel_Diesel_Hybrid,NOX.gas$sum,VehicleNumber.Fuel$Gasoline)
+ds5$Quantity.diesel <-ds5$VehicleNumber.Fuel.Diesel_Diesel_Hybrid
+ds5$Emission.diesel <-ds5$NOX.diesel.sum
+ds5$Quantity.gas <-ds5$VehicleNumber.Fuel.Gasoline
+ds5$Emission.gas <-ds5$NOX.gas.sum
+
+ds5$Quantity.diesel <- as.numeric(ds4$Quantity.diesel)
+ds5$Quantity.gas <- as.numeric(ds4$Quantity.gas)
+
+reg3 <- lm(data = ds4, Emission.diesel ~ Quantity.diesel)
+summary(reg3)
+
+reg4 <- lm(ds4$Emission.gas ~ ds4$Quantity.gas)
+summary(reg4)
 
 
 #Multivariable regression: which type of truck produce more emission
