@@ -591,10 +591,10 @@ ds4$Quantity.gas <-ds4$VehicleNumber.Fuel.Gasoline
 ds4$Emission.gas <-ds4$COT.gas.sum
 
 reg1 <- lm(ds4$Emission.diesel~ds4$Quantity.diesel)
-print(reg1)
-reg2 <- lm(ds4$Emission.gas~ds4$Quantity.gas)
-print(reg2)
+summary(reg1)
 
+reg2 <- lm(ds4$Emission.gas~ds4$Quantity.gas)
+summary(reg2)
 #Question here, I don't whether it is appropriate to use regression here, maybe use some cross group comparison
 #Add more analysis here 
 
