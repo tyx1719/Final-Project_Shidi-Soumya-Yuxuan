@@ -590,13 +590,58 @@ ds4$Emission.diesel <-ds4$COT.diesel.sum
 ds4$Quantity.gas <-ds4$VehicleNumber.Fuel.Gasoline
 ds4$Emission.gas <-ds4$COT.gas.sum
 
-reg1 <- lm(ds4$Emission.diesel~ds4$Quantity.diesel)
+ds4$Quantity.diesel <- as.numeric(ds4$Quantity.diesel)
+ds4$Quantity.gas <- as.numeric(ds4$Quantity.gas)
+
+reg1 <- lm(data = ds4, Emission.diesel ~ Quantity.diesel)
 summary(reg1)
 
-reg2 <- lm(ds4$Emission.gas~ds4$Quantity.gas)
+reg2 <- lm(ds4$Emission.gas ~ ds4$Quantity.gas)
 summary(reg2)
-#Question here, I don't whether it is appropriate to use regression here, maybe use some cross group comparison
-#Add more analysis here 
+
+#Coefficient (absolute value) for gas is much higher than diesel, thus gas vehicle produces more COT emission
+
+#NOX here
+
+
+#Multivariable regression: which type of truck produce more emission
+#COT
+COT$Year <- c("2018", "2019", "2020", "2021", "2022")
+COT$Year <- as.Date(COT$Year, format = "%Y")
+COT$Year <- year(COT$Year)
+COT$`LIGHT DUTY PASSENGER (LDA)` <- as.numeric(COT$`LIGHT DUTY PASSENGER (LDA)`)
+COT$`LIGHT DUTY TRUCKS - 1 (LDT1)` <- as.numeric(COT$`LIGHT DUTY TRUCKS - 1 (LDT1)`)
+COT$`LIGHT DUTY TRUCKS - 2 (LDT2)` <- as.numeric(COT$`LIGHT DUTY TRUCKS - 2 (LDT2)`)
+COT$`MEDIUM DUTY TRUCKS (MDV)` <- as.numeric(COT$`MEDIUM DUTY TRUCKS (MDV)`)
+COT$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)` <- as.numeric(COT$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)`)
+COT$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)` <- as.numeric(COT$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)`)
+COT$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)` <- as.numeric(COT$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)`)
+COT$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)` <- as.numeric(COT$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)`)
+COT$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)` <- as.numeric(COT$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`)
+COT$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)` <- as.numeric(COT$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`)
+COT$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)` <- as.numeric(COT$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`)
+COT$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)` <- as.numeric(COT$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)`)
+COT$`MOTORCYCLES (MCY)` <- as.numeric(COT$`MOTORCYCLES (MCY)`)
+COT$`HEAVY DUTY DIESEL URBAN BUSES (UBD)` <- as.numeric(COT$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`)
+COT$`HEAVY DUTY GAS URBAN BUSES (UBG)` <- as.numeric(COT$`HEAVY DUTY GAS URBAN BUSES (UBG)`)
+COT$`SCHOOL BUSES - GAS (SBG)` <- as.numeric(COT$`SCHOOL BUSES - GAS (SBG)`)
+COT$`SCHOOL BUSES - DIESEL (SBD)` <- as.numeric(COT$`SCHOOL BUSES - DIESEL (SBD)`)
+COT$`OTHER BUSES - GAS (OBG)` <- as.numeric(COT$`OTHER BUSES - GAS (OBG)`)
+COT$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)` <- as.numeric(COT$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)`)
+COT$`ALL OTHER BUSES - DIESEL (OBD)` <- as.numeric(COT$`ALL OTHER BUSES - DIESEL (OBD)`)
+COT$`MOTOR HOMES (MH)` <- as.numeric(COT$`MOTOR HOMES (MH)`)
+
+rowSums(COT[ , c(2:22)], na.rm=TRUE)
+
+ds6 <- 
+  COT%>%
+  mutate(Total_Emission = c(1844.808, 1694.213, 1570.754, 1464.898, 1365.674))
+
+reg6 <- lm(data = ds6, 
+           Total_Emission ~  `HEAVY DUTY DIESEL URBAN BUSES (UBD)` + `OTHER BUSES - MOTOR COACH - DIESEL (OBC)` + `ALL OTHER BUSES - DIESEL (OBD)`)
+summary(reg6)
+#Two few data to have meaningful results
+
 
 ```
 
