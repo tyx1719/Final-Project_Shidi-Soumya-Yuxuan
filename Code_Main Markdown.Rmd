@@ -843,14 +843,15 @@ summary(reg6)
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 # Summary and Conclusions
-Major finding from trend analysis
+#Major finding from exploratory and trend analysis
 [1] Number of gasoline vehicle are highest followed by hybrid gasoline, diesel run and flex fuel vehicles. Share of vehicle on natural gas, electric battery and hydrogen fuel are the lowest.
 [2] More than 50% of vehicles running on natural gas and diesel are heavy duty vehicles whereas, less than 5% of gasoline, hybrid gasoline and flex fuel vehicle are heavy duty vehicles. This share has remain stable over time except for natural gas for which share of heavy-duty vehicle increased since 2020. 
 [3] Trend of nitrogen oxide emissions has shown a declining trend across all the subcategories of vehicles. The carbon monoxide emissions trend of diesel-run vehicles remains similar to the trend of nitrogen oxide emission except for heavy-duty diesel urban buses for which carbon emission has increased over time.
 [4] Both types of emissions from gas-run vehicles have decreased or remained stable over time across all the subcategories.
 [5] Both types of emissions from light-duty vehicles have decreased or remained stable over time across all the subcategories.
-[6] The nitrogen oxide emissions from heavy-duty vehicles have decreased or remained stable over time across all the subcategories. The carbon monoxide emissions trend of diesel-run vehicles remains similar to the trend of nitrogen oxide emission except for heavy-duty diesel urban buses for which carbon emission has increased over time.  
+[6] The nitrogen oxide emissions from heavy-duty vehicles have decreased or remained stable over time across all the subcategories. The carbon monoxide emissions trend of diesel-run vehicles remains similar to the trend of nitrogen oxide emission except for heavy-duty diesel urban buses for which carbon emission has increased over time.
 
+#Major finding from regression analysis
 #Reference
 [1]“California Moves to Accelerate to 100% New Zero-Emission Vehicle Sales by 2035 | California Air Resources Board,” accessed December 13, 2022, https://ww2.arb.ca.gov/news/california-moves-accelerate-100-new-zero-emission-vehicle-sales-2035.
 
