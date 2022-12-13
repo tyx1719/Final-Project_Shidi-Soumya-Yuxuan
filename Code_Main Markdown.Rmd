@@ -4,6 +4,33 @@ author: "Dai, Mathew, Tian"
 date: '2022-12-10'
 output: pdf_document
 ---
+#Rationale and Research Questions
+
+#Rationale for the study  
+This study examines the number and types of on road motor vehicles that are most responsible for California's carbon monoxide and nitrogen oxide emissions over the course of 5 years (2018–2022).  
+Despite an increase in population and automobile use, aggressive air pollution control measures in California have resulted in ongoing improvements in air quality. The state still lags the rest of the country, even though the situation has been gradually getting better. The state of California continues to experience worsening smog due to its population growth, reliance on automobile travel, and warm climate. The Advanced Clean Cars II rule, which was approved by the California Air Resources Board in August 2022, will put California on a path to rapidly expanding the market for zero-emission cars, pickup trucks, and SUVs by 2035 while also bringing about cleaner air and significant reductions in pollution that contributes to global warming. The 2022 scoping plan, a five-year climate change strategy, details California's intention to reduce its dependency on oil while also cleaning up the worst air pollution in the country. The plan also establishes a more aggressive target of reducing carbon emissions by 48% below 1990 levels by 2030, as opposed to the 40% reduction by 2030 mandated by state law. To reach the new 48% objective in just eight years, California, however, still has a long way to go. The reduction in emissions from 1990 levels by 2020 was just about 14%. Furthermore, California is second among US states in terms of overall yearly CO2 emissions of 358.6 million metric tons (Texas ranked first at 706.5 million metric ton emissions). 
+Given the strict legislation to control emissions and the present gap between released and planned emissions, California state is a good case study to understand the patterns of emissions and the types of vehicles responsible for maximum contribution.  
+
+#Rationale for your choice of dataset 
+Data from the California Department of Motor Vehicles and the California Air Resources Board are used in this research. As the research studies the trends of the number of vehicles in the state which likely impacts emissions, the motor vehicle data set is useful as it provides total vehicle counts for registered cars with precise as of dates, broken down by ZIP code, model year, fuel type, make, and duty (light/heavy).  The study also examines how the total number of different types of vehicles impacts the state’s emissions. The emission data is useful to examine the relationship between the type and quantity of vehicles on state's emissions as it provides annual averages of carbon monoxide and nitrogen oxide emitted by different subcategories of on-road motor vehicles.  
+
+
+#List of questions 
+
+*Trend Analysis* 
+
+Question 1: How has the d  
+
+Question 2: 
+
+Question 3: 
+
+Regression Analysis 
+
+Question 1:  
+
+Question 2: 
+
 ##Project set up
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -480,16 +507,17 @@ COT$`MOTOR HOMES (MH)` <- as.numeric(COT$`MOTOR HOMES (MH)`)
 
 ```
 
-## Analysis
-1. Trend analysis: The quantity of different types of cars changes over the years (two graphs)
-   add some description of the graph (like: which type has an obvious drop at what year)
-2. Trend analysis: The emission changes over the years (carbon and nitrogen)
-   add a paragraph, why we choose these two pollutant
-   Ideally two graphs here
-3. Regression analysis:
-   combine diesel/carbon
-   light duty/ heavy duty
-   y = beta0 + beta1 x + error term
+##Trend Analysis 
+
+This section analyses the trend of the number of vehicles over time by type of vehicle in the state and emission of nitrogen oxide and carbon monoxide by diesel-run, gas-run, light-duty, and heavy-duty vehicles. It is divided into two parts: analysis of vehicle data and emission data. 
+
+#Part one: Analysis of vehicle data  
+
+*Trends of number of vehicles in the state over time* 
+
+Figures 1 and 2 below show the change in the number of different types of vehicles over time. The graph shows that the number of gasoline cars is the highest in the state. However, the number steeply declined in 2021 and rose in 2022 <insert possible reason here>. The flex-fuel, diesel hybrid and gasoline hybrid vehicles are also relatively much higher than the rest of the types of vehicles.  Diesel hybrid and Gasoline hybrid have shown a rising trend since 2019 and 2021 respectively. Whereas flex-fuel has been declining for the past two years. Electric vehicles have shown a steep rise since 2019.   
+
+Note: Due to the quantity of gasoline cars is too large, we separate it as an independent graph to present the quantity changes 
 
 ```{r, echo=FALSE}
 #############Trend Analysis#############
@@ -507,7 +535,7 @@ ggplot(ds1_sub, aes(x=Year,y=value,group=variable,color=variable))+
   xlab("Year")+
   ylab("Quantity")+
   theme(legend.position = "right")+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles", title = paste("Change in the variety of vehicles across time"), subtitle = "Figure 1")
 
 #plot #of cars changes over the years (Only gasoline)
 #ps. Due to the quantity of gasoline cars is too large, we seperate it as an independent graph to present the quantity changes
@@ -517,13 +545,20 @@ ggplot(ds1_sub2, aes(x=Year,y=value,group=variable,color=variable))+
   xlab("Year")+
   ylab("Quantity")+
   theme(legend.position = "right")+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles", title = paste("Change in the gasoline vehicles across time"), subtitle = "Figure 2")
 
+```
+
+*Trends of heavy and light duty cars over time* 
+
+Figure 3 below shows the trend of heavy vehicles by vehicle type across time. The state has a higher share (more than 50 percent) of heavy-duty gasoline and diesel-run vehicles than other types of vehicles. The natural gas heavy-duty vehicle has shown an increase in 2020 and then a slight decline since 2021. The share of other types of heavy-duty vehicles such as gasoline, hybrid gasoline, and flex-fuel vehicles has remained below 5 percent over time. 
+
+Figure 4 below shows the trend of light vehicles by vehicle type across time.  Natural gas light-duty vehicle has shown a decline in 2020 and then a slight increase since 2021. The share of other types of light-duty vehicles such as gasoline, hybrid gasoline, and flex-fuel vehicles has remained higher than 90 percent over time. 
+
+Note: Share is calculated as for example, heavy-duty vehicle diesel/Total diesel vehicles 
+  
+```{r, echo=FALSE}
 #trend of heavy and light duty cars over time
-
-Master_table_vehicles_wogasoline <- subset (Master_table_vehicles, Fuel_Type != "Gasoline")
-
-Master_table_vehicles_onlygasoline <- subset (Master_table_vehicles, Fuel_Type == "Gasoline")
 
 #Heavy vehicle trend over time
 ggplot(Master_table_vehicles, aes(x=Year,y=Share_Heavy,group=Fuel_Type,color=Fuel_Type))+
@@ -532,7 +567,7 @@ ggplot(Master_table_vehicles, aes(x=Year,y=Share_Heavy,group=Fuel_Type,color=Fue
   xlab("Year")+
   ylab("Share of Heavy Vehicle")+
   theme(legend.position = "right")+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles", title = paste("Change in share of heavy duty vehicles across time"), subtitle = "Figure 3")
 
 #Light vehicle trend over time
 ggplot(Master_table_vehicles, aes(x=Year,y=Share_Light,group=Fuel_Type,color=Fuel_Type))+
@@ -541,11 +576,18 @@ ggplot(Master_table_vehicles, aes(x=Year,y=Share_Light,group=Fuel_Type,color=Fue
   xlab("Year")+
   ylab("Share of Light Vehicle")+
   theme(legend.position = "right")+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles", title = paste("Change in share of light duty vehicles across time"), subtitle = "Figure 4")
+```
+#Part two: Analysis of emission data 
 
+*Comparison of nitrogen oxide and carbon monoxide emissions of diesel-run vehicles.*  
 
+Figure 5 and 6 below shows the trend of nitrogen oxide and carbon monoxide emissions of diesel-run vehicles over time, respectively. The overall trend of nitrogen oxide emissions has shown a declining trend across all the subcategories. The carbon monoxide emissions trend of diesel-run vehicles remains like nitrogen oxide emission except for y-duty diesel urban buses which has increased over time.  
+
+```{r, echo=FALSE}
 ###PART2
-#carbon and nitrogen
+#nitrogen oxide and carbon monoxide of diesel-run vehicles
+
 #NOX.diesel
 ds2_d <- melt(NOX.diesel,id="Year")
 ds2_d$value <- as.numeric(ds2_d$value)
@@ -554,41 +596,8 @@ ggplot(ds2_d, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
-
-#NOX.gas
-ds2_g <- melt(NOX.gas,id="Year")
-ds2_g$value <- as.numeric(ds2_g$value)
-ggplot(ds2_g, aes(x=Year,y=value,group=variable,color=variable))+
-  geom_point()+
-  geom_line()+
-  xlab("Year")+
-  ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
-
-#NOX.light
-ds2_l <- melt(NOX.light,id="Year")
-ds2_l$value <- as.numeric(ds2_l$value)
-ggplot(ds2_l, aes(x=Year,y=value,group=variable,color=variable))+
-  geom_point()+
-  geom_line()+
-  xlab("Year")+
-  ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
-
-#NOX.heavy
-ds2_h <- melt(NOX.heavy,id="Year")
-ds2_h$value <- as.numeric(ds2_h$value)
-ggplot(ds2_h, aes(x=Year,y=value,group=variable,color=variable))+
-  geom_point()+
-  geom_line()+
-  xlab("Year")+
-  ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
+  theme(legend.position = "bottom",legend.key.size = unit(.25, 'cm'))+
+  labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of diesel run vehicles across time"), subtitle = "Figure 5")
 
 #COT
 #COT.diesel
@@ -600,7 +609,26 @@ ggplot(ds3_d, aes(x=Year,y=value,group=variable,color=variable))+
   xlab("Year")+
   ylab("Emission")+
   theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles", title = paste("Trend of Carbon Monoxide emission of diesel run vehicles across time"), subtitle = "Figure 6")
+```
+
+*Comparison of nitrogen oxide and carbon monoxide emissions of gas-run vehicles.* 
+
+Figure 7 and 8 below shows the trend of nitrogen oxide and carbon monoxide emissions of gas-run vehicles over time, respectively. The trend shows that both types of emissions from gas-run vehicles have decreased or remained stable over time across all the subcategories. 
+
+```{r, echo=FALSE}
+#nitrogen oxide and carbon monoxide of gas-run vehicles
+
+#NOX.gas
+ds2_g <- melt(NOX.gas,id="Year")
+ds2_g$value <- as.numeric(ds2_g$value)
+ggplot(ds2_g, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of gas run vehicles across time"), subtitle = "Figure 7")
 
 #COT.gas
 ds3_g <- melt(COT.gas,id="Year")
@@ -611,7 +639,26 @@ ggplot(ds3_g, aes(x=Year,y=value,group=variable,color=variable))+
   xlab("Year")+
   ylab("Emission")+
   theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles", title = paste("Trend of Carbon Monoxide emission of gas run vehicles across time"), subtitle = "Figure 8")
+```
+
+*Comparison of nitrogen oxide and carbon monoxide emissions of light-duty vehicles.*
+
+Figure 9 and 10 below show the trend of nitrogen oxide and carbon monoxide emissions of light-duty vehicles over time, respectively. The trend shows that both types of emissions from light-duty vehicles have decreased or remained stable over time across all the subcategories. 
+
+```{r, echo=FALSE}
+#nitrogen oxide and carbon monoxide of light-duty vehicles
+
+#NOX.light
+ds2_l <- melt(NOX.light,id="Year")
+ds2_l$value <- as.numeric(ds2_l$value)
+ggplot(ds2_l, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of light-duty vehicles across time"), subtitle = "Figure 9")
 
 #COT.light
 ds3_l <- melt(COT.light,id="Year")
@@ -622,7 +669,25 @@ ggplot(ds3_l, aes(x=Year,y=value,group=variable,color=variable))+
   xlab("Year")+
   ylab("Emission")+
   theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles", title = paste("Trend of Carbon Monoxide emission of light duty vehicles across time"), subtitle = "Figure 10")
+```
+
+*Comparison of nitrogen oxide and carbon monoxide emissions of heavy-duty vehicles.*
+
+Figure 11 and 12 below show the trend of nitrogen oxide and carbon monoxide emissions of heavy-duty vehicles over time, respectively. The trend shows that the nitrogen oxide emissions from heavy-duty vehicles have decreased or remained stable over time across all the subcategories. The arbon monoxide emissions trend of diesel-run vehicles remains like nitrogen oxide emission except for heavy-duty diesel urban buses which has increased over time.  
+
+```{r, echo=FALSE}
+#nitrogen oxide and carbon monoxide of heavy-duty vehicles
+#NOX.heavy
+ds2_h <- melt(NOX.heavy,id="Year")
+ds2_h$value <- as.numeric(ds2_h$value)
+ggplot(ds2_h, aes(x=Year,y=value,group=variable,color=variable))+
+  geom_point()+
+  geom_line()+
+  xlab("Year")+
+  ylab("Emission")+
+  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of heavy-duty vehicles across time"), subtitle = "Figure 11")
 
 #COT.heavy
 ds3_h <- melt(COT.heavy,id="Year")
@@ -633,8 +698,12 @@ ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
   xlab("Year")+
   ylab("Emission")+
   theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
-  labs(color="Type of vehicles")
+  labs(color="Type of vehicles",  title = paste("Trend of Carbon Monoxide emission of heavy duty vehicles across time"), subtitle = "Figure 12")
+```
 
+##Regression Analysis 
+
+```{r, echo=FALSE}
 #############Regression Analysis#############
 # car quantity and emission
 #COT.diesel
