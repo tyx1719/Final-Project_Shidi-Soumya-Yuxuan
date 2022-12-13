@@ -350,11 +350,6 @@ COT <-
   gather(variable, value, -rowname) %>% 
   spread(rowname, value)
 
-COT_delete <-
-  Carbon.Monoxide %>%
-  rownames_to_column() %>%
-  gather(variable, value, -rowname) %>% 
-  spread(rowname, value)
 
 COT <- COT[, c(1, 2, 13, 16, 17, 18, 19, 20, 21, 22, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15)]
 colnames(COT) <- COT[1,]
@@ -591,19 +586,26 @@ Figure 5 and 6 below shows the trend of nitrogen oxide and carbon monoxide emiss
 ###PART2
 #nitrogen oxide and carbon monoxide of diesel-run vehicles
 
-#NOX.diesel
+#NOX.diesel 
+#changing cloumn names for graphic purposes
+colnames(NOX.diesel) <- c("Year","LHDDT1","LHDDT2","MHDDT","HHDDT","UBD","SBD","OBC","OBD")
+
 ds2_d <- melt(NOX.diesel,id="Year")
 ds2_d$value <- as.numeric(ds2_d$value)
+
 ggplot(ds2_d, aes(x=Year,y=value,group=variable,color=variable))+
   geom_point()+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "bottom",legend.key.size = unit(.25, 'cm'))+
-  labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of diesel run vehicles across time"), subtitle = "Figure 5")
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
+  labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of diesel run vehicles across time"), subtitle = "Figure 5") 
 
 #COT
 #COT.diesel
+#changing cloumn names for graphic purposes
+colnames(COT.diesel) <- c("Year","LHDDT1","LHDDT2","MHDDT","HHDDT","UBD","SBD","OBC","OBD")
+
 ds3_d <- melt(COT.diesel,id="Year")
 ds3_d$value <- as.numeric(ds3_d$value)
 ggplot(ds3_d, aes(x=Year,y=value,group=variable,color=variable))+
@@ -623,6 +625,8 @@ Figure 7 and 8 below shows the trend of nitrogen oxide and carbon monoxide emiss
 #nitrogen oxide and carbon monoxide of gas-run vehicles
 
 #NOX.gas
+colnames(NOX.gas) <- c("Year","LDA","LDT1","LDT2","MDV","LHDGTI1","LHDGTI1","MHDGT","HHDGT", "MCY", "UBG","SBG", "OBG", "MH")
+
 ds2_g <- melt(NOX.gas,id="Year")
 ds2_g$value <- as.numeric(ds2_g$value)
 ggplot(ds2_g, aes(x=Year,y=value,group=variable,color=variable))+
@@ -630,10 +634,12 @@ ggplot(ds2_g, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
   labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of gas run vehicles across time"), subtitle = "Figure 7")
 
 #COT.gas
+colnames(COT.gas) <- c("Year","LDA","LDT1","LDT2","MDV","LHDGTI1","LHDGTI1","MHDGT","HHDGT", "MCY", "UBG","SBG", "OBG", "MH")
+
 ds3_g <- melt(COT.gas,id="Year")
 ds3_g$value <- as.numeric(ds3_g$value)
 ggplot(ds3_g, aes(x=Year,y=value,group=variable,color=variable))+
@@ -641,7 +647,7 @@ ggplot(ds3_g, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
   labs(color="Type of vehicles", title = paste("Trend of Carbon Monoxide emission of gas run vehicles across time"), subtitle = "Figure 8")
 ```
 
@@ -653,6 +659,8 @@ Figure 9 and 10 below show the trend of nitrogen oxide and carbon monoxide emiss
 #nitrogen oxide and carbon monoxide of light-duty vehicles
 
 #NOX.light
+colnames(NOX.light) <- c("Year","LDA","LDT1","LDT2","MDV","MCY","SBG","SBD","OBG", "OBC", "OBD","MH")
+
 ds2_l <- melt(NOX.light,id="Year")
 ds2_l$value <- as.numeric(ds2_l$value)
 ggplot(ds2_l, aes(x=Year,y=value,group=variable,color=variable))+
@@ -660,10 +668,12 @@ ggplot(ds2_l, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
   labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of light-duty vehicles across time"), subtitle = "Figure 9")
 
 #COT.light
+colnames(COT.light) <- c("Year","LDA","LDT1","LDT2","MDV","MCY","SBG","SBD","OBG", "OBC", "OBD","MH")
+
 ds3_l <- melt(COT.light,id="Year")
 ds3_l$value <- as.numeric(ds3_l$value)
 ggplot(ds3_l, aes(x=Year,y=value,group=variable,color=variable))+
@@ -671,7 +681,7 @@ ggplot(ds3_l, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
   labs(color="Type of vehicles", title = paste("Trend of Carbon Monoxide emission of light duty vehicles across time"), subtitle = "Figure 10")
 ```
 
@@ -682,6 +692,7 @@ Figure 11 and 12 below show the trend of nitrogen oxide and carbon monoxide emis
 ```{r, echo=FALSE}
 #nitrogen oxide and carbon monoxide of heavy-duty vehicles
 #NOX.heavy
+colnames(NOX.heavy) <- c("Year","LHDGT1","LHDGT2","MHDGT","HHDGT","LHDDT1","LHDDT2","MHDDT","HHDDT", "UBD", "UBG")
 ds2_h <- melt(NOX.heavy,id="Year")
 ds2_h$value <- as.numeric(ds2_h$value)
 ggplot(ds2_h, aes(x=Year,y=value,group=variable,color=variable))+
@@ -689,10 +700,11 @@ ggplot(ds2_h, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
   labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of heavy-duty vehicles across time"), subtitle = "Figure 11")
 
 #COT.heavy
+colnames(COT.heavy) <- c("Year","LHDGT1","LHDGT2","MHDGT","HHDGT","LHDDT1","LHDDT2","MHDDT","HHDDT", "UBD", "UBG")
 ds3_h <- melt(COT.heavy,id="Year")
 ds3_h$value <- as.numeric(ds3_h$value)
 ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
@@ -700,7 +712,7 @@ ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
   labs(color="Type of vehicles",  title = paste("Trend of Carbon Monoxide emission of heavy duty vehicles across time"), subtitle = "Figure 12")
 ```
 
