@@ -4,31 +4,6 @@ author: "Dai, Mathew, Tian"
 date: '2022-12-10'
 output: pdf_document
 ---
-#Rationale and Research Questions
-
-#Rationale for the study  
-This study examines the number and types of on road motor vehicles that are most responsible for California's carbon monoxide and nitrogen oxide emissions over the course of 5 years (2018–2022).  
-Despite an increase in population and automobile use, aggressive air pollution control measures in California have resulted in ongoing improvements in air quality. The state still lags the rest of the country, even though the situation has been gradually getting better. The state of California continues to experience worsening smog due to its population growth, reliance on automobile travel, and warm climate. The Advanced Clean Cars II rule, which was approved by the California Air Resources Board in August 2022, will put California on a path to rapidly expanding the market for zero-emission cars, pickup trucks, and SUVs by 2035 while also bringing about cleaner air and significant reductions in pollution that contributes to global warming. The 2022 scoping plan, a five-year climate change strategy, details California's intention to reduce its dependency on oil while also cleaning up the worst air pollution in the country. The plan also establishes a more aggressive target of reducing carbon emissions by 48% below 1990 levels by 2030, as opposed to the 40% reduction by 2030 mandated by state law. To reach the new 48% objective in just eight years, California, however, still has a long way to go. The reduction in emissions from 1990 levels by 2020 was just about 14%. Furthermore, California is second among US states in terms of overall yearly CO2 emissions of 358.6 million metric tons (Texas ranked first at 706.5 million metric ton emissions). 
-Given the strict legislation to control emissions and the present gap between released and planned emissions, California state is a good case study to understand the patterns of emissions and the types of vehicles responsible for maximum contribution.  
-
-#Rationale for your choice of dataset 
-Data from the California Department of Motor Vehicles and the California Air Resources Board are used in this research. As the research studies the trends of the number of vehicles in the state which likely impacts emissions, the motor vehicle data set is useful as it provides total vehicle counts for registered cars with precise as of dates, broken down by ZIP code, model year, fuel type, make, and duty (light/heavy).  The study also examines how the total number of different types of vehicles impacts the state’s emissions. The emission data is useful to examine the relationship between the type and quantity of vehicles on state's emissions as it provides annual averages of carbon monoxide and nitrogen oxide emitted by different subcategories of on-road motor vehicles.  
-
-
-#List of questions 
-
-*Questions for Trend Analysis* 
-
-Question 1: How has the number of different types of vehicle has changed over time? 
-Sub question a: How has the number of heavy-duty and light-duty vehicle changed over time
-
-Question 2: What are the trends of two types of emission, nitrogen oxide and carbon monoxide, from diesel-run, gas-run, light-duty and heavy-duty vehicles. 
-
-*Questions for Regression Analysis*
-
-Question 1:  
-
-Question 2: 
 
 ##Project set up
 ```{r setup, include=FALSE}
@@ -65,6 +40,23 @@ Q2021 <- read.csv("Data/Raw/vehicle-fuel-type-count-by-zip-code-2021.csv", strin
   
 Q2022 <- read_csv("Data/Raw/vehicle-fuel-type-count-by-zip-code-2022 (1).csv")
 ```
+
+#Rationale and Research Questions
+
+#Rationale for the study  
+This study examines the number and types of on road motor vehicles that are most responsible for California's carbon monoxide and nitrogen oxide emissions over the course of 5 years (2018–2022).  
+Despite an increase in population and automobile use, aggressive air pollution control measures in California have resulted in ongoing improvements in air quality. The state still lags the rest of the country, even though the situation has been gradually getting better. The state of California continues to experience worsening smog due to its population growth, reliance on automobile travel, and warm climate. The Advanced Clean Cars II rule, which was approved by the California Air Resources Board in August 2022, will put California on a path to rapidly expanding the market for zero-emission cars, pickup trucks, and SUVs by 2035 while also bringing about cleaner air and significant reductions in pollution that contributes to global warming. The 2022 scoping plan, a five-year climate change strategy, details California's intention to reduce its dependency on oil while also cleaning up the worst air pollution in the country. The plan also establishes a more aggressive target of reducing carbon emissions by 48% below 1990 levels by 2030, as opposed to the 40% reduction by 2030 mandated by state law. To reach the new 48% objective in just eight years, California, however, still has a long way to go. The reduction in emissions from 1990 levels by 2020 was just about 14%. Furthermore, California is second among US states in terms of overall yearly CO2 emissions of 358.6 million metric tons (Texas ranked first at 706.5 million metric ton emissions). 
+Given the strict legislation to control emissions and the present gap between released and planned emissions, California state is a good case study to understand the patterns of emissions and the types of vehicles responsible for maximum contribution.  
+
+#Rationale for your choice of dataset 
+Data from the California Department of Motor Vehicles and the California Air Resources Board are used in this research. As the research studies the trends of the number of vehicles in the state which likely impacts emissions, the motor vehicle data set is useful as it provides total vehicle counts for registered cars with precise as of dates, broken down by ZIP code, model year, fuel type, make, and duty (light/heavy).  The study also examines how the total number of different types of vehicles impacts the state’s emissions. The emission data is useful to examine the relationship between the type and quantity of vehicles on state's emissions as it provides annual averages of carbon monoxide and nitrogen oxide emitted by different subcategories of on-road motor vehicles.
+
+# Dataset Information
+
+
+
+
+
 
 ## Clean up the dataset
 
@@ -506,15 +498,19 @@ COT$`MOTOR HOMES (MH)` <- as.numeric(COT$`MOTOR HOMES (MH)`)
 
 ```
 
-##Trend Analysis 
+##Exploratory Analysis 
 
+*Questions for Exploratory Analysis* 
+
+Question 1: How has the number of different types of vehicle has changed over time? 
+Sub question a: How has the number of heavy-duty and light-duty vehicle changed over time
+ 
+##Exploratory Analysis 
 This section analyses the trend of the number of vehicles over time by type of vehicle in the state and emission of nitrogen oxide and carbon monoxide by diesel-run, gas-run, light-duty, and heavy-duty vehicles. It is divided into two parts: analysis of vehicle data and emission data. 
-
-#Part one: Analysis of vehicle data  
 
 *Trends of number of vehicles in the state over time* 
 
-Figures 1 and 2 below show the change in the number of different types of vehicles over time. The graph shows that the number of gasoline cars is the highest in the state. However, the number steeply declined in 2021 and rose in 2022. The flex-fuel, diesel hybrid and gasoline hybrid vehicles are also relatively much higher than the rest of the types of vehicles.  Diesel hybrid and Gasoline hybrid have shown a rising trend since 2019 and 2021 respectively. Whereas flex-fuel has been declining for the past two years. Electric vehicles have shown a steep rise since 2019.   
+Figures 1 and 2 below show the change in the number of different types of vehicles over time. The graph shows that the number of gasoline cars is the highest in the state. However, the number steeply declined in 2021 and rose in 2022. This is potentially due to COVID-19's impact. The flex-fuel, diesel hybrid and gasoline hybrid vehicles are also relatively much higher than the rest of the types of vehicles.  Diesel hybrid and Gasoline hybrid have shown a rising trend since 2019 and 2021 respectively. Whereas flex-fuel has been declining for the past two years. Electric vehicles have shown a steep rise since 2019.   
 
 Note: Due to the quantity of gasoline cars is too large, we separate it as an independent graph to present the quantity changes 
 
@@ -533,7 +529,7 @@ ggplot(ds1_sub, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Quantity")+
-  theme(legend.position = "right")+
+  theme(legend.position = "bottom")+
   labs(color="Type of vehicles", title = paste("Change in the variety of vehicles across time"), subtitle = "Figure 1")
 
 #plot #of cars changes over the years (Only gasoline)
@@ -565,7 +561,7 @@ ggplot(Master_table_vehicles, aes(x=Year,y=Share_Heavy,group=Fuel_Type,color=Fue
   geom_line()+
   xlab("Year")+
   ylab("Share of Heavy Vehicle")+
-  theme(legend.position = "right")+
+  theme(legend.position = "bottom")+
   labs(color="Type of vehicles", title = paste("Change in share of heavy duty vehicles across time"), subtitle = "Figure 3")
 
 #Light vehicle trend over time
@@ -574,10 +570,18 @@ ggplot(Master_table_vehicles, aes(x=Year,y=Share_Light,group=Fuel_Type,color=Fue
   geom_line()+
   xlab("Year")+
   ylab("Share of Light Vehicle")+
-  theme(legend.position = "right")+
+  theme(legend.position = "bottom")+
   labs(color="Type of vehicles", title = paste("Change in share of light duty vehicles across time"), subtitle = "Figure 4")
 ```
-#Part two: Analysis of emission data 
+
+# Analysis
+This section is divided into two types of analysis: Trend Analysis and Regression Analysis
+
+#Questions for trend analysis
+Question 1: What are the trends of two types of emission, nitrogen oxide and carbon monoxide, from diesel-run, gas-run, light-duty and heavy-duty vehicles.
+
+# Trend Analysis
+#Analysis of emission data 
 
 *Comparison of nitrogen oxide and carbon monoxide emissions of diesel-run vehicles.*  
 
@@ -607,7 +611,7 @@ ggplot(ds3_d, aes(x=Year,y=value,group=variable,color=variable))+
   geom_line()+
   xlab("Year")+
   ylab("Emission")+
-  theme(legend.position = "right",legend.key.size = unit(.5, 'cm'))+
+  theme(legend.position = "bottom",legend.key.size = unit(.5, 'cm'))+
   labs(color="Type of vehicles", title = paste("Trend of Carbon Monoxide emission of diesel run vehicles across time"), subtitle = "Figure 6")
 ```
 
@@ -702,6 +706,8 @@ ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
 
 ##Regression Analysis 
 
+#Questions for regression analysis
+
 ```{r, echo=FALSE}
 #############Regression Analysis#############
 # car quantity and emission
@@ -764,3 +770,10 @@ summary(reg6)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Summary and Conclusions
+
+
+
+
+
