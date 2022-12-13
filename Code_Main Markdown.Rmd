@@ -42,8 +42,6 @@ Q2022 <- read_csv("Data/Raw/vehicle-fuel-type-count-by-zip-code-2022 (1).csv")
 
 ## Clean up the dataset
 
-xxx briefly summarize what we do in this part
-
 ```{r}
 #Find and combine vehicle numbers from different year data set and categorize with different fuel
 
@@ -92,7 +90,7 @@ sum(Q2022[which(Q2022$Fuel =="Other"), 7])
 sum(Q2022[which(Q2022$Fuel =="Plug-in Hybrid"), 7])
 sum(Q2022[which(Q2022$Fuel =="Hydrogen Fuel Cell"), 7])
 
-#I used Q2018 data for both Y2018 and Y2019 since it was collected in October and others were collected in January
+#Used Q2018 data for both Y2018 and Y2019 since it was collected in October and others were collected in January
 VehicleNumber.Fuel <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
                                  Gasoline = c("26978798", "26978798", "26985319", "25253808","26313272"),
                                  Diesel_Diesel_Hybrid = c("1282387", "1282387", "1271338", "1199349", "1306851"),
@@ -473,7 +471,6 @@ COT$`MOTOR HOMES (MH)` <- as.numeric(COT$`MOTOR HOMES (MH)`)
    combine diesel/carbon
    light duty/ heavy duty
    y = beta0 + beta1 x + error term
-4.Something else
 
 ```{r, echo=FALSE}
 #############Trend Analysis#############
@@ -642,9 +639,7 @@ summary(reg1)
 reg2 <- lm(ds4$Emission.gas ~ ds4$Quantity.gas)
 summary(reg2)
 
-#Coefficient (absolute value) for gas is much higher than diesel, thus gas vehicle produces more COT emission
-
-#NOX here
+#NOX 
 #Nox.diesel
 NOX.diesel$sum <- NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`+NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`+NOX.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`+NOX.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)` +NOX.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`+NOX.diesel$`SCHOOL BUSES - DIESEL (SBD)`+NOX.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)`
 
@@ -661,10 +656,10 @@ ds5$Emission.gas <-ds5$NOX.gas.sum
 ds5$Quantity.diesel <- as.numeric(ds4$Quantity.diesel)
 ds5$Quantity.gas <- as.numeric(ds4$Quantity.gas)
 
-reg3 <- lm(data = ds4, Emission.diesel ~ Quantity.diesel)
+reg3 <- lm(data = ds5, Emission.diesel ~ Quantity.diesel)
 summary(reg3)
 
-reg4 <- lm(ds4$Emission.gas ~ ds4$Quantity.gas)
+reg4 <- lm(ds5$Emission.gas ~ ds5$Quantity.gas)
 summary(reg4)
 
 
@@ -677,11 +672,8 @@ ds6 <-
   mutate(Total_Emission = c(1844.808, 1694.213, 1570.754, 1464.898, 1365.674))
 
 reg6 <- lm(data = ds6, 
-           Total_Emission ~  `HEAVY DUTY DIESEL URBAN BUSES (UBD)` + `OTHER BUSES - MOTOR COACH - DIESEL (OBC)` + `ALL OTHER BUSES - DIESEL (OBD)`)
+           Total_Emission ~  `HEAVY DUTY DIESEL URBAN BUSES (UBD)` + `HEAVY DUTY GAS URBAN BUSES (UBG)` )
 summary(reg6)
-#Two few data to have meaningful results
-
-
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
