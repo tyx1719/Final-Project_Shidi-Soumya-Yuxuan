@@ -102,6 +102,19 @@ VehicleNumber.Fuel <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"
                                  Plug_in_Hybrid = c("204002", "204002", "248388", "264112", "305526"),
                                  Hydrogen_Fuel_Cell = c("5138", "5138", "6648", "7481", "10129"))
 
+VehicleNumber.Fuel$Year <- as.numeric(VehicleNumber.Fuel$Year)
+VehicleNumber.Fuel$Gasoline <- as.numeric(VehicleNumber.Fuel$Gasoline)
+VehicleNumber.Fuel$Diesel_Diesel_Hybrid <- as.numeric(VehicleNumber.Fuel$Diesel_Diesel_Hybrid)
+VehicleNumber.Fuel$Natural_Gas <- as.numeric(VehicleNumber.Fuel$Natural_Gas)
+VehicleNumber.Fuel$Hybrid_Gasoline <- as.numeric(VehicleNumber.Fuel$Hybrid_Gasoline)
+VehicleNumber.Fuel$Flex_Fuel <- as.numeric(VehicleNumber.Fuel$Flex_Fuel)
+VehicleNumber.Fuel$Battery_Electric <- as.numeric(VehicleNumber.Fuel$Battery_Electric)
+VehicleNumber.Fuel$Other <- as.numeric(VehicleNumber.Fuel$Other)
+VehicleNumber.Fuel$Plug_in_Hybrid <- as.numeric(VehicleNumber.Fuel$Plug_in_Hybrid)
+VehicleNumber.Fuel$Hydrogen_Fuel_Cell <- as.numeric(VehicleNumber.Fuel$Hydrogen_Fuel_Cell)
+
+write.csv(VehicleNumber.Fuel, row.names = FALSE, file = "Data/Processed/VehicleNumber.Fuel.csv")
+
 #Heavy or light duty in each fuel
 #Gasoline
 Q2018.gasoline <- 
@@ -136,6 +149,8 @@ GasolineVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "202
                                    Heavy = c("292958", "292958", "295136", "261439", "265796"),
                                    Light = c("26685840", "26685840", "26690183", "23661814", "24741892"))
 
+write.csv(GasolineVehicle.Duty, row.names = FALSE, file = "Data/Processed/GasolineVehicle.Duty.csv")
+
 #Diesel and Diesel Hybrid
 Q2018.diesel <- 
   Q2018 %>%
@@ -168,6 +183,8 @@ sum(Q2022.diesel[which(Q2022.diesel$Duty =="Heavy"), 3])
 DieselVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2022"),
                                    Heavy = c("704568", "704568", "694293", "616207", "702098"),
                                    Light = c("577819", "577819", "577045", "541294", "554805"))
+
+write.csv(DieselVehicle.Duty, row.names = FALSE, file = "Data/Processed/DieselVehicle.Duty.csv")
 
 #Natural Gas
 Q2018.naturalgas <- 
@@ -300,6 +317,8 @@ Master_table_vehicles <- rbind(GasolineVehicle.Duty_a,DieselVehicle.Duty_a,Hybri
   mutate(Share_Light = Light/Total_vehicle) %>%
   mutate(Share_Heavy = Heavy/Total_vehicle)
 
+write.csv(Master_table_vehicles, row.names = FALSE, file = "Data/Processed/Master_table_vehicles.csv")
+
 #Emission Data cleaning: select only on-road vehicles
 Carbon.Monoxide <- carbon [carbon$CATEGORY == "ON-ROAD MOTOR VEHICLES", ]
 
@@ -324,6 +343,7 @@ colnames(COT) <- COT[1,]
 COT <- COT[-1, ]
 colnames(COT)[1] <- "Year"
 
+write.csv(COT, row.names = FALSE, file = "Data/Processed/COT.csv")
 
 Nitrogen.Oxide <- nitrogen [nitrogen$CATEGORY == "ON-ROAD MOTOR VEHICLES", ]
 
@@ -341,8 +361,7 @@ colnames(NOX) <- NOX[1,]
 NOX <- NOX[-1, ]
 colnames(NOX)[1] <- "Year"
 
-view(COT)
-view(NOX)
+write.csv(NOX, row.names = FALSE, file = "Data/Processed/NOX.csv")
 
 #Separate emission by factor "gas" and "diesel"
 COT.gas <- 
