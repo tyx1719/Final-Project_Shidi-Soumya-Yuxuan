@@ -17,15 +17,14 @@ Data from the California Department of Motor Vehicles and the California Air Res
 
 #List of questions 
 
-*Trend Analysis* 
+*Questions for Trend Analysis* 
 
-Question 1: How has the d  
+Question 1: How has the number of different types of vehicle has changed over time? 
+Sub question a: How has the number of heavy-duty and light-duty vehicle changed over time
 
-Question 2: 
+Question 2: What are the trends of two types of emission, nitrogen oxide and carbon monoxide, from diesel-run, gas-run, light-duty and heavy-duty vehicles. 
 
-Question 3: 
-
-Regression Analysis 
+*Questions for Regression Analysis*
 
 Question 1:  
 
@@ -515,7 +514,7 @@ This section analyses the trend of the number of vehicles over time by type of v
 
 *Trends of number of vehicles in the state over time* 
 
-Figures 1 and 2 below show the change in the number of different types of vehicles over time. The graph shows that the number of gasoline cars is the highest in the state. However, the number steeply declined in 2021 and rose in 2022 <insert possible reason here>. The flex-fuel, diesel hybrid and gasoline hybrid vehicles are also relatively much higher than the rest of the types of vehicles.  Diesel hybrid and Gasoline hybrid have shown a rising trend since 2019 and 2021 respectively. Whereas flex-fuel has been declining for the past two years. Electric vehicles have shown a steep rise since 2019.   
+Figures 1 and 2 below show the change in the number of different types of vehicles over time. The graph shows that the number of gasoline cars is the highest in the state. However, the number steeply declined in 2021 and rose in 2022. The flex-fuel, diesel hybrid and gasoline hybrid vehicles are also relatively much higher than the rest of the types of vehicles.  Diesel hybrid and Gasoline hybrid have shown a rising trend since 2019 and 2021 respectively. Whereas flex-fuel has been declining for the past two years. Electric vehicles have shown a steep rise since 2019.   
 
 Note: Due to the quantity of gasoline cars is too large, we separate it as an independent graph to present the quantity changes 
 
