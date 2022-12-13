@@ -18,6 +18,7 @@ library(trend)
 library(zoo)
 library(reshape2)
 library(reshape)
+library(knitr)
 
 # Set theme
 mytheme <- theme_classic() +
@@ -52,15 +53,67 @@ Given the strict legislation to control emissions and the present gap between re
 Data from the California Department of Motor Vehicles and the California Air Resources Board are used in this research. As the research studies the trends of the number of vehicles in the state which likely impacts emissions, the motor vehicle data set is useful as it provides total vehicle counts for registered cars with precise as of dates, broken down by ZIP code, model year, fuel type, make, and duty (light/heavy).  The study also examines how the total number of different types of vehicles impacts the state’s emissions. The emission data is useful to examine the relationship between the type and quantity of vehicles on state's emissions as it provides annual averages of carbon monoxide and nitrogen oxide emitted by different subcategories of on-road motor vehicles.
 
 # Dataset Information
+This project uses data from two sources: California Air Resources Board (CARB) and California Department of Motor Vehicles (CADMV). Both datasets were retrieved on November 23, 2022. 
 
+For the emissions data, the project group uses California Air Resources Board’s Standard Emission Tool to gather statewide annual average emissions from mobile sources from 2018 to 2022. Since the most emissions from mobile sources are carbon monoxide and nitrogen oxides, this project focuses on the emissions data of these two pollutants. Therefore, there are two data files, one for carbon monoxide and the other for nitrogen oxides. Both datasets contain emissions from 2018 to 2022 under two main mobile categories: on-road motor vehicles and other mobile sources. Under on-road motor vehicles, there are 21 subcategories. From the websites’ variable descriptions, all subcategories with “heavy duty” in their names are considered heavy duty motor vehicles, others are considered as light duty vehicles. Also, all categories listed “diesel” are diesel-fueled, others are gas-fueled. 
 
+Correspondingly, this project uses vehicle number by fuel type data from California Department of Motor Vehicles from 2018 to 2022, to compare with emissions data for the analyses. This includes four reports that provide vehicle counts broken down by Zip code, model year, fuel type, make, and duty of registered vehicles. As the 2018 report was collected on October 1, 2018, while all other reports were collected on January 1 of 2020, 2021, and 2022, and there was no report in 2019, this project uses the 2018 report for both 2018 and 2019 vehicle count data. In each report, it provides vehicle counts in the last column for different groups of year, fuel, make, and duty registered in different locations. 
 
+Limitations: Since the emissions data is annual average, there are few observations for us to analyze. Due to the unmatched categories of quantity and emission data, we are not able to conduct a more detailed analysis. Also, the regression result is restricted to the limited availability of the data. With a larger and more detailed dataset, the result of the regression could be more robust.  
 
+Data Wrangling
+The project group processed raw datasets from both sources for analysis purposes. 
+
+For the vehicle counts by fuel type data from California Department of Motor Vehicles, we wrangled the datasets to show the number of vehicles registered in California with different fuel types. Using the unique function, we found that there are 9 types of fuels: gasoline, diesel and diesel hybrid, natural gas, hybrid gasoline, flex-fuel, battery electric, other, plug-in hybrid, and hydrogen fuel cell. Thus, we summed the number of vehicles in the vehicle column conditioned to each fuel type in all four data sets and created a new dataframe “VehicleNumber.Fuel” containing information about number of vehicles registered using different fuels in year 2018 to 2022. We converted characters in this dataframe into numeric for later analyses use. Then we saved this processed data set into the processed folder. 
+
+From the vehicle counts raw datasets, there is one column named “Duty” which differentiates vehicles with either “light” or “heavy”. As this project will be analyzing the effects of heavy and light (gasoline and diesel) vehicles on carbon monoxide and nitrogen oxides emissions, we summed the number of vehicles in rows with two conditions: duty and fuel. We created new dataframes: GasolineVehicle.Duty and DieselVehicle.Duty. In the GasolineVehicle.Duty dataset, we sum the number of vehicles with heavy in Duty and gasoline in the fuel column, and light in Duty and gasoline in Fuel, in years 2018 to 2022. In the DieselVehicle.Duty dataset, we sum the number of vehicles with heavy in Duty and diesel and diesel hybrid in Fuel, and light in Duty and diesel and diesel hybrid in Fuel. We did similar steps to create new datasets for heavy and light vehicle numbers using hybrid gasoline, natural gas, and flex-fuel. Finally, we used rbind and mutate to combine all the previous datasets into a new dataset “Master_table_vehicles”, with year, number of heavy vehicles, number of light vehicles, fuel type, total number of vehicles, share of light vehicles in total vehicles, and share of heavy vehicles in total vehicles. Notably, we added the two percentage columns at the end to represent the share of light/heavy vehicles among all. Then, we saved this dataframe in the processed data. 
+
+The project group then wrangled the two emissions datasets. As this project is focused on motor vehicles, we only need emissions data from on-road motor vehicles. Thus, we select only on-road motor vehicles data from both datasets. We found that it would be easier for regression purposes to have categories as column names and years as row names, so we reformatted the datasets to change the rows and columns. Then, we saved the two new dataframes as “COT” and “NOX” in the processed folder. 
+
+We also created some more dataframes from those two datasets. We pulled out columns with diesel vehicles to form COT.diesel and NOX.diesel. Similarly, we pulled out columns with gasoline fueled vehicles to form COT.gas and NOX.gas. We also pulled out columns with light duty vehicles to form COT.light and NOX.light. We selected columns with heavy duty vehicles to form COT.heavy and NOX.heavy. Then, we changed all the characters to numeric form for calculation use. 
+
+Dataset Description Table
+```{r, echo=FALSE}
+
+Data_Summary = data.frame(
+  #Column 1
+  Description_Name = c("# of Variables", "Variable Tested", "Unit", "Time Range", "Observation", "Raw/Processed", "Class", "Source"), 
+  
+  #Column 2
+  `Vehicle Fuel Type Count 2018` = c("7", "Vehicles", "Vehicle", "2018", "586233", "Raw", "Factor", "CADMV"),
+  
+  #Column 3
+  `Vehicle Fuel Type Count 2020` = c("7", "Vehicles", "Vehicle", "2020", "602394", "Raw", "Factor", "CADMV"), 
+  
+  #Column 4
+  `Vehicle Fuel Type Count 2021` = c("7", "Vehicles", "Vehicle", "2021", "677969", "Raw", "Factor", "CADMV"), 
+  
+  #Column 5
+  `Vehicle Fuel Type Count 2022` = c("7", "Vehicles", "Vehicle", "2022", "722465", "Raw", "Factor", "CADMV"), 
+  
+  #Column 6
+  `COT Emissions Projections` = c("13", "COT Emissions", "Tons per Day", "2018 to 2022", "32", "Raw", "Character", "CARB"), 
+  
+  #Column 7
+  `NOX Emissions Projections` = c("13", "NOX Emissions", "Tons per Day", "2018 to 2022", "32", "Raw", "Character", "CARB"),
+  
+  #Column 8
+  `VehicleNumber.Fuel Dataset` = c("10", "Vehicles", "Vehicle", "2018 to 2022", "5", "Processed", "Numeric", "N/A"), 
+  
+  #Column 9
+  `COT Dataset`= c("22", "COT Emissions", "Tons per Day", "2018 to 2022", "5", "Processed", "Numeric", "N/A"), 
+  
+  #Column 10
+  `NOX Dataset`= c("22", "NOX Emissions", "Tons per Day", "2018 to 2022", "5", "Processed", "Numeric", "N/A")
+)
+
+kable(Data_Summary)
+```
 
 
 ## Clean up the dataset
 
-```{r}
+```{r, echo=FALSE}
 #Find and combine vehicle numbers from different year data set and categorize with different fuel
 
 Q2018$Vehicles <- as.numeric(Q2018$Vehicles)
