@@ -682,7 +682,7 @@ reg4 <- lm(ds5$Emission.gas ~ ds5$Quantity.gas)
 summary(reg4)
 
 
-#Multivariable regression: which type of truck produce more emission
+#Multivariable regression
 #COT
 rowSums(COT[ , c(2:22)], na.rm=TRUE)
 
