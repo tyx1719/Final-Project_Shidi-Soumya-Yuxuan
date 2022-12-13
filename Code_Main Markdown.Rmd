@@ -678,9 +678,10 @@ Figure 7 and 8 below shows the trend of nitrogen oxide and carbon monoxide emiss
 #nitrogen oxide and carbon monoxide of gas-run vehicles
 
 #NOX.gas
-colnames(NOX.gas) <- c("Year","LDA","LDT1","LDT2","MDV","LHDGTI1","LHDGTI1","MHDGT","HHDGT", "MCY", "UBG","SBG", "OBG", "MH")
+NOX.gas_graph <- NOX.gas
+colnames(NOX.gas_graph) <- c("Year","LDA","LDT1","LDT2","MDV","LHDGTI1","LHDGTI1","MHDGT","HHDGT", "MCY", "UBG","SBG", "OBG", "MH")
 
-ds2_g <- melt(NOX.gas,id="Year")
+ds2_g <- melt(NOX.gas_graph,id="Year")
 ds2_g$value <- as.numeric(ds2_g$value)
 ggplot(ds2_g, aes(x=Year,y=value,group=variable,color=variable))+
   geom_point()+
@@ -691,9 +692,10 @@ ggplot(ds2_g, aes(x=Year,y=value,group=variable,color=variable))+
   labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of gas run vehicles across time"), subtitle = "Figure 7")
 
 #COT.gas
-colnames(COT.gas) <- c("Year","LDA","LDT1","LDT2","MDV","LHDGTI1","LHDGTI1","MHDGT","HHDGT", "MCY", "UBG","SBG", "OBG", "MH")
+COT.gas_graph <- COT.gas
+colnames(COT.gas_graph) <- c("Year","LDA","LDT1","LDT2","MDV","LHDGTI1","LHDGTI1","MHDGT","HHDGT", "MCY", "UBG","SBG", "OBG", "MH")
 
-ds3_g <- melt(COT.gas,id="Year")
+ds3_g <- melt(COT.gas_graph,id="Year")
 ds3_g$value <- as.numeric(ds3_g$value)
 ggplot(ds3_g, aes(x=Year,y=value,group=variable,color=variable))+
   geom_point()+
@@ -712,9 +714,10 @@ Figure 9 and 10 below show the trend of nitrogen oxide and carbon monoxide emiss
 #nitrogen oxide and carbon monoxide of light-duty vehicles
 
 #NOX.light
-colnames(NOX.light) <- c("Year","LDA","LDT1","LDT2","MDV","MCY","SBG","SBD","OBG", "OBC", "OBD","MH")
+NOX.light_graph <- NOX.light
+colnames(NOX.light_graph) <- c("Year","LDA","LDT1","LDT2","MDV","MCY","SBG","SBD","OBG", "OBC", "OBD","MH")
 
-ds2_l <- melt(NOX.light,id="Year")
+ds2_l <- melt(NOX.light_graph,id="Year")
 ds2_l$value <- as.numeric(ds2_l$value)
 ggplot(ds2_l, aes(x=Year,y=value,group=variable,color=variable))+
   geom_point()+
@@ -725,9 +728,10 @@ ggplot(ds2_l, aes(x=Year,y=value,group=variable,color=variable))+
   labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of light-duty vehicles across time"), subtitle = "Figure 9")
 
 #COT.light
-colnames(COT.light) <- c("Year","LDA","LDT1","LDT2","MDV","MCY","SBG","SBD","OBG", "OBC", "OBD","MH")
+COT.light_graph <- COT.light
+colnames(COT.light_graph) <- c("Year","LDA","LDT1","LDT2","MDV","MCY","SBG","SBD","OBG", "OBC", "OBD","MH")
 
-ds3_l <- melt(COT.light,id="Year")
+ds3_l <- melt(COT.light_graph,id="Year")
 ds3_l$value <- as.numeric(ds3_l$value)
 ggplot(ds3_l, aes(x=Year,y=value,group=variable,color=variable))+
   geom_point()+
@@ -745,8 +749,9 @@ Figure 11 and 12 below show the trend of nitrogen oxide and carbon monoxide emis
 ```{r, echo=FALSE}
 #nitrogen oxide and carbon monoxide of heavy-duty vehicles
 #NOX.heavy
-colnames(NOX.heavy) <- c("Year","LHDGT1","LHDGT2","MHDGT","HHDGT","LHDDT1","LHDDT2","MHDDT","HHDDT", "UBD", "UBG")
-ds2_h <- melt(NOX.heavy,id="Year")
+NOX.heavy_graph <- NOX.heavy
+colnames(NOX.heavy_graph) <- c("Year","LHDGT1","LHDGT2","MHDGT","HHDGT","LHDDT1","LHDDT2","MHDDT","HHDDT", "UBD", "UBG")
+ds2_h <- melt(NOX.heavy_graph,id="Year")
 ds2_h$value <- as.numeric(ds2_h$value)
 ggplot(ds2_h, aes(x=Year,y=value,group=variable,color=variable))+
   geom_point()+
@@ -757,8 +762,9 @@ ggplot(ds2_h, aes(x=Year,y=value,group=variable,color=variable))+
   labs(color="Type of vehicles", title = paste("Trend of Nitrogen Oxide emission of heavy-duty vehicles across time"), subtitle = "Figure 11")
 
 #COT.heavy
-colnames(COT.heavy) <- c("Year","LHDGT1","LHDGT2","MHDGT","HHDGT","LHDDT1","LHDDT2","MHDDT","HHDDT", "UBD", "UBG")
-ds3_h <- melt(COT.heavy,id="Year")
+COT.heavy_graph <- COT.heavy
+colnames(COT.heavy_graph) <- c("Year","LHDGT1","LHDGT2","MHDGT","HHDGT","LHDDT1","LHDDT2","MHDDT","HHDDT", "UBD", "UBG")
+ds3_h <- melt(COT.heavy_graph,id="Year")
 ds3_h$value <- as.numeric(ds3_h$value)
 ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
   geom_point()+
