@@ -154,3 +154,23 @@ The team clean up the dataset and generate new datasets for further analysis. Th
   summary(reg6)
  
 **This project followed ENV 872 class practices and weekly assignments.** 
+
+## License
+<California’s Motor Vehicle Registration Fee Program’s
+impact on the state’s emission>
+Copyright (C) <2022>  <Shidi Dai,Soumya Mathew, Yuxuan Tian>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Contact information: shidi.dai@duke.edu; soumya.mathew@duke.edu; yuxuan.tian@duke.edu
