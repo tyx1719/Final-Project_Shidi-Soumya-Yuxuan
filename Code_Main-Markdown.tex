@@ -65,18 +65,6 @@
 \setcounter{secnumdepth}{5}
 \usepackage{longtable}
 \usepackage{float}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{xcolor}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -107,10 +95,26 @@ the state's emission}
 \newpage
 \tableofcontents 
 \newpage
-\listoftables 
-\newpage
-\listoffigures 
-\newpage
+\listoftables
+
+Table 1. Dataset Description Table \newpage
+
+\listoffigures
+
+\emph{Figure 1.} Change in the variety of vehicles across time
+\emph{Figure 2.} Change in the gasoline vehicles across time
+\emph{Figure 3.} Change in share of heavy duty vehicles across time
+\emph{Figure 4.} Change in share of light duty vehicles across time
+\emph{Figure 5.} Trend of Nitrogen Oxide emission of diesel run vehicles
+across time \emph{Figure 6.} Trend of Carbon Monoxide emission of diesel
+run vehicles across time \emph{Figure 7.} Trend of Nitrogen Oxide
+emission of gas run vehicles across time \emph{Figure 8.} Trend of
+Carbon Monoxide emission of gas run vehicles across time \emph{Figure
+9.} Trend of Nitrogen Oxide emission of light−duty vehicles across time
+\emph{Figure 10.} Trend of Carbon Monoxide emission of light duty
+vehicles across time \emph{Figure 11.} Trend of Nitrogen Oxide emission
+of heavy−duty vehicles across time \emph{Figure 12.} Trend of Carbon
+Monoxide emission of heavy duty vehicles across time \newpage
 
 \hypertarget{project-set-up}{%
 \section{Project set up}\label{project-set-up}}
@@ -272,128 +276,108 @@ characters to numeric form for calculation use.
 Table}\label{dataset-description-table}}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0708}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1208}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1208}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1208}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1208}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1083}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1083}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1125}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0583}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0583}}@{}}
-\caption{Dataset Description}\tabularnewline
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1828}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2043}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2043}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2043}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2043}}@{}}
 \toprule()
 \begin{minipage}[b]{\linewidth}\raggedright
 Description\_Name
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2018
+Vehicle.Count.2018
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2020
+Vehicle.Count.2020
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2021
+Vehicle.Count.2021
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2022
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-COT.Emissions.Projections
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-NOX.Emissions.Projections
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-VehicleNumber.Fuel.Dataset
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-COT.Dataset
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-NOX.Dataset
-\end{minipage} \\
-\midrule()
-\endfirsthead
-\toprule()
-\begin{minipage}[b]{\linewidth}\raggedright
-Description\_Name
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2018
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2020
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2021
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Vehicle.Fuel.Type.Count.2022
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-COT.Emissions.Projections
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-NOX.Emissions.Projections
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-VehicleNumber.Fuel.Dataset
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-COT.Dataset
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-NOX.Dataset
+Vehicle.Count.2022
 \end{minipage} \\
 \midrule()
 \endhead
-\# of Variables & 7 & 7 & 7 & 7 & 13 & 13 & 10 & 22 & 22 \\
-Variable Tested & Vehicles & Vehicles & Vehicles & Vehicles & COT
-Emissions & NOX Emissions & Vehicles & COT Emissions & NOX Emissions \\
-Unit & Vehicle & Vehicle & Vehicle & Vehicle & Tons per Day & Tons per
-Day & Vehicle & Tons per Day & Tons per Day \\
-Time Range & 2018 & 2020 & 2021 & 2022 & 2018 to 2022 & 2018 to 2022 &
-2018 to 2022 & 2018 to 2022 & 2018 to 2022 \\
-Observation & 586233 & 602394 & 677969 & 722465 & 32 & 32 & 5 & 5 & 5 \\
-Raw/Processed & Raw & Raw & Raw & Raw & Raw & Raw & Processed &
-Processed & Processed \\
-Class & Factor & Factor & Factor & Factor & Character & Character &
-Numeric & Numeric & Numeric \\
-Source & CADMV & CADMV & CADMV & CADMV & CARB & CARB & N/A & N/A &
-N/A \\
+\# of Variables & 7 & 7 & 7 & 7 \\
+Variable Tested & Vehicles & Vehicles & Vehicles & Vehicles \\
+Unit & Vehicle & Vehicle & Vehicle & Vehicle \\
+Time Range & 2018 & 2020 & 2021 & 2022 \\
+Observation & 586233 & 602394 & 677969 & 722465 \\
+Raw/Processed & Raw & Raw & Raw & Raw \\
+Class & Factor & Factor & Factor & Factor \\
+Source & CADMV & CADMV & CADMV & CADMV \\
 \bottomrule()
 \end{longtable}
 
-\begin{table}[H]
-
-\caption{\label{tab:unnamed-chunk-1}Dataset Description}
-\centering
-\resizebox{\linewidth}{!}{
-\begin{tabular}[t]{l|l|l|l|l|l|l|l|l|l}
-\hline
-Description\_Name & Vehicle.Fuel.Type.Count.2018 & Vehicle.Fuel.Type.Count.2020 & Vehicle.Fuel.Type.Count.2021 & Vehicle.Fuel.Type.Count.2022 & COT.Emissions.Projections & NOX.Emissions.Projections & VehicleNumber.Fuel.Dataset & COT.Dataset & NOX.Dataset\\
-\hline
-\# of Variables & 7 & 7 & 7 & 7 & 13 & 13 & 10 & 22 & 22\\
-\hline
-Variable Tested & Vehicles & Vehicles & Vehicles & Vehicles & COT Emissions & NOX Emissions & Vehicles & COT Emissions & NOX Emissions\\
-\hline
-Unit & Vehicle & Vehicle & Vehicle & Vehicle & Tons per Day & Tons per Day & Vehicle & Tons per Day & Tons per Day\\
-\hline
-Time Range & 2018 & 2020 & 2021 & 2022 & 2018 to 2022 & 2018 to 2022 & 2018 to 2022 & 2018 to 2022 & 2018 to 2022\\
-\hline
-Observation & 586233 & 602394 & 677969 & 722465 & 32 & 32 & 5 & 5 & 5\\
-\hline
-Raw/Processed & Raw & Raw & Raw & Raw & Raw & Raw & Processed & Processed & Processed\\
-\hline
-Class & Factor & Factor & Factor & Factor & Character & Character & Numeric & Numeric & Numeric\\
-\hline
-Source & CADMV & CADMV & CADMV & CADMV & CARB & CARB & N/A & N/A & N/A\\
-\hline
-\end{tabular}}
-\end{table}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1771}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1979}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1458}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1458}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+Description\_Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+COT.Projections
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+NOX.Projections
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+VehicleNumber.Fuel
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+COT
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+NOX
+\end{minipage} \\
+\midrule()
+\endhead
+\# of Variables & 13 & 13 & 10 & 22 & 22 \\
+Variable Tested & COT Emissions & NOX Emissions & Vehicles & COT
+Emissions & NOX Emissions \\
+Unit & Tons per Day & Tons per Day & Vehicle & Tons per Day & Tons per
+Day \\
+Time Range & 2018 to 2022 & 2018 to 2022 & 2018 to 2022 & 2018 to 2022 &
+2018 to 2022 \\
+Observation & 32 & 32 & 5 & 5 & 5 \\
+Raw/Processed & Raw & Raw & Processed & Processed & Processed \\
+Class & Character & Character & Numeric & Numeric & Numeric \\
+Source & CARB & CARB & N/A & N/A & N/A \\
+\bottomrule()
+\end{longtable}
 
 \newpage
 
 \hypertarget{clean-up-the-dataset}{%
 \subsection{Clean up the dataset}\label{clean-up-the-dataset}}
 
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find and combine vehicle numbers from different year data set and
+  categorize with different fuel
+\item
+  Used Q2018 data for both Y2018 and Y2019 since it was collected in
+  October and others were collected in January
+\item
+  Creating Master Table for Vehicle data
+\item
+  Emission Data cleaning: select only on-road vehicles
+\item
+  Processed datasets: Heavy or light duty in each fuel
+\item
+  Separate emission by factor ``gas'' and ``diesel''
+\item
+  Separate emission by factor ``light duty'' and ``heavy duty'' (Any
+  category containing ``heavy duty'' in their names is considered heavy,
+  others(including buses) are light)
+\item
+  Change to numeric for plot and regression use *See detailed cleaning
+  process in the rmd file in the
+\end{enumerate}
+
 \newpage
 
 \hypertarget{exploratory-analysis}{%
 \section{Exploratory Analysis}\label{exploratory-analysis}}
-
-\emph{Questions for Exploratory Analysis}
-
-\hypertarget{question-1}{%
-\subsection{Question 1}\label{question-1}}
-
-How has the number of different types of vehicle has changed over time?
-\#\#\# Sub question How has the number of heavy-duty and light-duty
-vehicle changed over time
 
 This section analyses the trend of the number of vehicles over time by
 type of vehicle in the state and emission of nitrogen oxide and carbon
@@ -448,8 +432,8 @@ diesel/Total diesel vehicles
 This section is divided into two types of analysis: Trend Analysis and
 Regression Analysis
 
-\hypertarget{question-1-1}{%
-\subsection{Question 1}\label{question-1-1}}
+\hypertarget{question-1}{%
+\subsection{Question 1}\label{question-1}}
 
 What are the trends of two types of emission, nitrogen oxide and carbon
 monoxide, from diesel-run, gas-run, light-duty and heavy-duty vehicles.
