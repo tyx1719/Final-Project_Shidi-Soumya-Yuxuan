@@ -4,7 +4,6 @@ title: California’s Motor Vehicle Registration Fee Program’s impact on the s
 author: "Shidi Dai, Soumya Mathew, Yuxuan Tian"
 output:
   pdf_document:
-    extra_dependencies: ["longtable","float"]
     keep_tex: yes
     fig_caption: yes
     number_sections: yes
