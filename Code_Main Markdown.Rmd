@@ -1,17 +1,37 @@
 ---
-title: "Final Project Draft"
-author: "Dai, Mathew, Tian"
-date: '2022-12-10'
-output: pdf_document
+title: California’s Motor Vehicle Registration Fee Program’s impact on the state’s
+  emission
+author: "Shidi Dai, Soumya Mathew, Yuxuan Tian"
+output:
+  pdf_document:
+    keep_tex: yes
+    fig_caption: yes
+    number_sections: yes
+  html_document:
+    df_print: paged
+subtitle: https://github.com/tyx1719/Final-Project_Shidi-Soumya-Yuxuan.git
+geometry: margin=2.54cm
+fontsize: 12pt
+mainfont: Times New Roman
 ---
+
+\newpage
+\tableofcontents 
+\newpage
+\listoftables 
+\newpage
+\listoffigures 
+\newpage
 
 ##Project set up
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=60), tidy=TRUE)
 
-#Load the packages
+# Set working directory
 getwd()
+
+# Load packages
 library(tidyverse)
 library(lubridate)
 library(trend)
@@ -20,18 +40,18 @@ library(reshape2)
 library(reshape)
 library(knitr)
 
-# Set theme
+# Set ggplot theme
 mytheme <- theme_classic() +
   theme(axis.text = element_text(color = "black"), 
         legend.position = "right")
 theme_set(mytheme)
 
-#Import the emission dataset 
+# Load the emission datasets 
 carbon <- read.csv("Data/Raw/Carbon_Monoxide.csv", stringsAsFactors = TRUE)
 
 nitrogen <- read.csv("Data/Raw/Nitrogen_Oxide.csv", stringsAsFactors = TRUE)
 
-#Import the car quantity dataset
+#Load the car quantity datasets
 
 Q2018 <- read.csv("Data/Raw/vehicle-fuel-type-count-by-zip-code.csv", stringsAsFactors = TRUE)
 
@@ -51,6 +71,8 @@ Given the strict legislation to control emissions and the present gap between re
 
 #Rationale for your choice of dataset 
 Data from the California Department of Motor Vehicles and the California Air Resources Board are used in this research. As the research studies the trends of the number of vehicles in the state which likely impacts emissions, the motor vehicle data set is useful as it provides total vehicle counts for registered cars with precise as of dates, broken down by ZIP code, model year, fuel type, make, and duty (light/heavy).  The study also examines how the total number of different types of vehicles impacts the state’s emissions. The emission data is useful to examine the relationship between the type and quantity of vehicles on state's emissions as it provides annual averages of carbon monoxide and nitrogen oxide emitted by different subcategories of on-road motor vehicles.
+
+\newpage
 
 # Dataset Information
 This project uses data from two sources: California Air Resources Board (CARB) and California Department of Motor Vehicles (CADMV). Both datasets were retrieved on November 23, 2022. 
@@ -110,6 +132,7 @@ Data_Summary = data.frame(
 kable(Data_Summary)
 ```
 
+\newpage
 
 ## Clean up the dataset
 
@@ -290,7 +313,6 @@ NaturalGasVehicle.Duty <- data.frame(Year = c("2018", "2019", "2020", "2021", "2
                                    Heavy = c("20455", "20455", "17211", "7558", "22265"),
                                    Light = c("14527", "14527", "11885", "2042", "7738"))
 
-
 #Hybrid Gasoline
 Q2018.hybridgas <- 
   Q2018 %>%
@@ -403,7 +425,6 @@ COT <-
   gather(variable, value, -rowname) %>% 
   spread(rowname, value)
 
-
 COT <- COT[, c(1, 2, 13, 16, 17, 18, 19, 20, 21, 22, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15)]
 colnames(COT) <- COT[1,]
 COT <- COT[-1, ]
@@ -507,7 +528,6 @@ NOX.heavy <-
   NOX %>%
   select(c(1, 6:13, 15, 16))
 
-
 #Change the Year column in COT and NOX datasets for plot use
 COT.diesel$Year <- c(2018,2019,2020,2021,2022)
 COT.gas$Year <- c(2018,2019,2020,2021,2022)
@@ -545,6 +565,8 @@ COT$`ALL OTHER BUSES - DIESEL (OBD)` <- as.numeric(COT$`ALL OTHER BUSES - DIESEL
 COT$`MOTOR HOMES (MH)` <- as.numeric(COT$`MOTOR HOMES (MH)`)
 
 ```
+
+\newpage
 
 ##Exploratory Analysis 
 
@@ -622,22 +644,19 @@ ggplot(Master_table_vehicles, aes(x=Year,y=Share_Light,group=Fuel_Type,color=Fue
   labs(color="Type of vehicles", title = paste("Change in share of light duty vehicles across time"), subtitle = "Figure 4")
 ```
 
+\newpage
+
 # Analysis
 This section is divided into two types of analysis: Trend Analysis and Regression Analysis
 
-#Questions for trend analysis
-Question 1: What are the trends of two types of emission, nitrogen oxide and carbon monoxide, from diesel-run, gas-run, light-duty and heavy-duty vehicles.
-
-# Trend Analysis
-#Analysis of emission data 
+## Question 1
+What are the trends of two types of emission, nitrogen oxide and carbon monoxide, from diesel-run, gas-run, light-duty and heavy-duty vehicles.
 
 *Comparison of nitrogen oxide and carbon monoxide emissions of diesel-run vehicles.*  
 
 Figure 5 and 6 below shows the trend of nitrogen oxide and carbon monoxide emissions of diesel-run vehicles over time, respectively. The overall trend of nitrogen oxide emissions has shown a declining trend across all the subcategories. The carbon monoxide emissions trend of diesel-run vehicles remains like nitrogen oxide emission except for heavy-duty diesel urban buses which has increased over time.  
 
 ```{r, echo=FALSE}
-###PART2
-#nitrogen oxide and carbon monoxide of diesel-run vehicles
 
 #NOX.diesel 
 #changing cloumn names for graphic purposes
@@ -775,13 +794,12 @@ ggplot(ds3_h, aes(x=Year,y=value,group=variable,color=variable))+
   labs(color="Type of vehicles",  title = paste("Trend of Carbon Monoxide emission of heavy duty vehicles across time"), subtitle = "Figure 12")
 ```
 
-##Regression Analysis 
+##Question 2
+For two kinds of pollutants (COT and NOX), how does the number of vehicles contribute to the changes in emissions? 
 
-#Questions for regression analysis
+Sub question: Are types of fuel (diesel and gas) contribute to the emission differently? 
 
 ```{r, echo=FALSE}
-#############Regression Analysis#############
-# car quantity and emission
 #COT.diesel
 COT.diesel$sum <- COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`+COT.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`+COT.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`+COT.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)`+COT.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`+COT.diesel$`SCHOOL BUSES - DIESEL (SBD)`+COT.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)`+COT.diesel$`ALL OTHER BUSES - DIESEL (OBD)`
 
@@ -802,13 +820,17 @@ summary(reg1)
 
 reg2 <- lm(ds4$Emission.gas ~ ds4$Quantity.gas)
 summary(reg2)
+```
+We first ran a simple regression to estimate the relationship between the number of vehicles using diesel and the emission of carbon organic total(COT). The quantity of cars is the independent variable, and the emission is the dependent variable in the model. The estimated effect of the number of cars on the COT emission is –0.00001561. e p-value is 0.665, which is much larger than 0.05. We could say the quantity has no statistically significant effect on the emission. 
 
+Then we tested the relationship between the number of gas-fueled vehicles and the COT emission. The quantity of cars is the independent variable, and the emission is the dependent variable in the model. The estimated effect of the number of cars on the COT emission is 0.0001567. Compared with the result of diesel, we could observe a slightly larger effect. The p-value is 0.250, which is much larger than 0.05. We could say the number of cars has no statistically significant effect on the emission. Coefficient (absolute value) for gas is much higher than diesel, thus gas vehicle produces more COT emission 
+
+```{r, echo=FALSE}
 #NOX 
 #Nox.diesel
 NOX.diesel$sum <- NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 1 (LHDDT1)`+NOX.diesel$`LIGHT HEAVY DUTY DIESEL TRUCKS - 2 (LHDDT2)`+NOX.diesel$`MEDIUM HEAVY DUTY DIESEL TRUCKS (MHDDT)`+NOX.diesel$`HEAVY HEAVY DUTY DIESEL TRUCKS (HHDDT)` +NOX.diesel$`HEAVY DUTY DIESEL URBAN BUSES (UBD)`+NOX.diesel$`SCHOOL BUSES - DIESEL (SBD)`+NOX.diesel$`OTHER BUSES - MOTOR COACH - DIESEL (OBC)`
 
 #NOX.gas
-
 NOX.gas$sum <- NOX.gas$`LIGHT DUTY PASSENGER (LDA)`+ NOX.gas$`LIGHT DUTY TRUCKS - 1 (LDT1)`+NOX.gas$`LIGHT DUTY TRUCKS - 2 (LDT2)`+ NOX.gas$`MEDIUM DUTY TRUCKS (MDV)`+NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 1 (LHDGT1)`+NOX.gas$`LIGHT HEAVY DUTY GAS TRUCKS - 2 (LHDGT2)`+ NOX.gas$`MEDIUM HEAVY DUTY GAS TRUCKS (MHDGT)`+ NOX.gas$`HEAVY HEAVY DUTY GAS TRUCKS (HHDGT)`+ NOX.gas$`MOTORCYCLES (MCY)`+NOX.gas$`HEAVY DUTY GAS URBAN BUSES (UBG)`+NOX.gas$`SCHOOL BUSES - GAS (SBG)`+NOX.gas$`OTHER BUSES - GAS (OBG)`+NOX.gas$`MOTOR HOMES (MH)`
 
 ds5 <- data.frame(NOX.diesel$Year,NOX.diesel$sum,VehicleNumber.Fuel$Diesel_Diesel_Hybrid,NOX.gas$sum,VehicleNumber.Fuel$Gasoline)
@@ -825,8 +847,15 @@ summary(reg3)
 
 reg4 <- lm(ds5$Emission.gas ~ ds5$Quantity.gas)
 summary(reg4)
+```
+We used another pollutant, nitrogen oxides (NOX). Similar to what we did for NOX, we first tested the relationship between the number of diesel-fueled vehicles and the NOX emission. The quantity of cars is the independent variable, and the emission is the dependent variable in the model. The estimated effect of the number of cars on the NOX emission is 0.00007562. The p-value is 0.912, which is much larger than 0.05. We could say the number of cars has no statistically significant effect on the emission. 
 
+Then we ran the regression to estimate the relationship between the number of gas-fueled vehicles and the NOX emission. The quantity of cars is the independent variable, and the emission is the dependent variable in the model. The estimated effect of the number of cars on the NOX emission is 0.00002178. We could see the result of diesel-fueled cars is slightly larger than the one of gas-fueled. The p-value is 0.247, which is much larger than 0.05. We could say the number of cars has no statistically significant effect on the emission. 
 
+##Question3 
+Is there any difference in the contribution to emission between heavy duty urban buses fueled by gas and diesel? 
+
+```{r, echo=FALSE}
 #Multivariable regression
 #COT
 rowSums(COT[ , c(2:22)], na.rm=TRUE)
@@ -840,18 +869,27 @@ reg6 <- lm(data = ds6,
 summary(reg6)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Only using the COT emission data, we ran a multivariable regression to estimate different types of heavy-duty urban buses’ contribution to the total emission. The null hypothesis is the coefficient of heavy duty diesel urban buses and the coefficient of heavy duty gas urban buses are the same. Regarding the heavy duty diesel urban buses, the coefficient is -46.308 and the p-value is 0.015, which is smaller than 0.05. We could reject the null hypothesis that the beta1 (coefficient of heavy duty diesel urban buses) is statistically different from others. And for the heavy duty gas urban buses, the coefficient is 3933.293 and the p-value is 0.754, which is much larger than 0.05. From the regression result, we could say that for the same type of heavy duty urban buses, the fuel type (diesel and gas) has a clearly different impact on the total emission. The limitation of the analysis is that we could not find available data of the number of two types of urban buses. 
+
+\newpage
 
 # Summary and Conclusions
-#Major finding from exploratory and trend analysis
+
 [1] Number of gasoline vehicle are highest followed by hybrid gasoline, diesel run and flex fuel vehicles. Share of vehicle on natural gas, electric battery and hydrogen fuel are the lowest.
 [2] More than 50% of vehicles running on natural gas and diesel are heavy duty vehicles whereas, less than 5% of gasoline, hybrid gasoline and flex fuel vehicle are heavy duty vehicles. This share has remain stable over time except for natural gas for which share of heavy-duty vehicle increased since 2020. 
 [3] Trend of nitrogen oxide emissions has shown a declining trend across all the subcategories of vehicles. The carbon monoxide emissions trend of diesel-run vehicles remains similar to the trend of nitrogen oxide emission except for heavy-duty diesel urban buses for which carbon emission has increased over time.
 [4] Both types of emissions from gas-run vehicles have decreased or remained stable over time across all the subcategories.
 [5] Both types of emissions from light-duty vehicles have decreased or remained stable over time across all the subcategories.
 [6] The nitrogen oxide emissions from heavy-duty vehicles have decreased or remained stable over time across all the subcategories. The carbon monoxide emissions trend of diesel-run vehicles remains similar to the trend of nitrogen oxide emission except for heavy-duty diesel urban buses for which carbon emission has increased over time.
-
+[7] From the regression result, for the same type of heavy duty urban buses, the fuel type (diesel and gas) has a clearly different impact on the total emission. 
 #Major finding from regression analysis
+
+
+
+
+
+\newpage
+
 #Reference
 [1]“California Moves to Accelerate to 100% New Zero-Emission Vehicle Sales by 2035 | California Air Resources Board,” accessed December 13, 2022, https://ww2.arb.ca.gov/news/california-moves-accelerate-100-new-zero-emission-vehicle-sales-2035.
 
