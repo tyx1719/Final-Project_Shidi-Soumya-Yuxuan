@@ -22,18 +22,18 @@ mainfont: Times New Roman
 Table 1. Dataset Description Table
 \newpage
 \listoffigures 
-*Figure 1.* Change in the variety of vehicles across time
-*Figure 2.* Change in the gasoline vehicles across time
-*Figure 3.* Change in share of heavy duty vehicles across time
-*Figure 4.* Change in share of light duty vehicles across time
-*Figure 5.* Trend of Nitrogen Oxide emission of diesel run vehicles across time
-*Figure 6.* Trend of Carbon Monoxide emission of diesel run vehicles across time
-*Figure 7.* Trend of Nitrogen Oxide emission of gas run vehicles across time
-*Figure 8.* Trend of Carbon Monoxide emission of gas run vehicles across time
-*Figure 9.* Trend of Nitrogen Oxide emission of light−duty vehicles across time
-*Figure 10.* Trend of Carbon Monoxide emission of light duty vehicles across time
-*Figure 11.* Trend of Nitrogen Oxide emission of heavy−duty vehicles across time
-*Figure 12.* Trend of Carbon Monoxide emission of heavy duty vehicles across time
+Figure 1. Change in the variety of vehicles across time
+Figure 2. Change in the gasoline vehicles across time
+Figure 3. Change in share of heavy duty vehicles across time
+Figure 4. Change in share of light duty vehicles across time
+Figure 5. Trend of Nitrogen Oxide emission of diesel run vehicles across time
+Figure 6.* Trend of Carbon Monoxide emission of diesel run vehicles across time
+*Figure 7. Trend of Nitrogen Oxide emission of gas run vehicles across time
+Figure 8. Trend of Carbon Monoxide emission of gas run vehicles across time
+Figure 9. Trend of Nitrogen Oxide emission of light−duty vehicles across time
+Figure 10. Trend of Carbon Monoxide emission of light duty vehicles across time
+Figure 11. Trend of Nitrogen Oxide emission of heavy−duty vehicles across time
+Figure 12. Trend of Carbon Monoxide emission of heavy duty vehicles across time
 \newpage
 
 # Project set up
