@@ -98,45 +98,45 @@ We also created some more dataframes from those two datasets. We pulled out colu
 ### Dataset Description Table
 ```{r, echo=FALSE}
 
-Data_Summary = data.frame(
+Data_Summary1 = data.frame(
   #Column 1
   Description_Name = c("# of Variables", "Variable Tested", "Unit", "Time Range", "Observation", "Raw/Processed", "Class", "Source"), 
   
   #Column 2
-  `Vehicle Fuel Type Count 2018` = c("7", "Vehicles", "Vehicle", "2018", "586233", "Raw", "Factor", "CADMV"),
+  `Vehicle Count 2018` = c("7", "Vehicles", "Vehicle", "2018", "586233", "Raw", "Factor", "CADMV"),
   
   #Column 3
-  `Vehicle Fuel Type Count 2020` = c("7", "Vehicles", "Vehicle", "2020", "602394", "Raw", "Factor", "CADMV"), 
+  `Vehicle Count 2020` = c("7", "Vehicles", "Vehicle", "2020", "602394", "Raw", "Factor", "CADMV"), 
   
   #Column 4
-  `Vehicle Fuel Type Count 2021` = c("7", "Vehicles", "Vehicle", "2021", "677969", "Raw", "Factor", "CADMV"), 
+  `Vehicle Count 2021` = c("7", "Vehicles", "Vehicle", "2021", "677969", "Raw", "Factor", "CADMV"), 
   
   #Column 5
-  `Vehicle Fuel Type Count 2022` = c("7", "Vehicles", "Vehicle", "2022", "722465", "Raw", "Factor", "CADMV"), 
+  `Vehicle Count 2022` = c("7", "Vehicles", "Vehicle", "2022", "722465", "Raw", "Factor", "CADMV")
+)
+
+Data_Summary2 = data.frame(
+  #Column 1
+  Description_Name = c("# of Variables", "Variable Tested", "Unit", "Time Range", "Observation", "Raw/Processed", "Class", "Source"),
   
   #Column 6
-  `COT Emissions Projections` = c("13", "COT Emissions", "Tons per Day", "2018 to 2022", "32", "Raw", "Character", "CARB"), 
+  `COT Projections` = c("13", "COT Emissions", "Tons per Day", "2018 to 2022", "32", "Raw", "Character", "CARB"), 
   
   #Column 7
-  `NOX Emissions Projections` = c("13", "NOX Emissions", "Tons per Day", "2018 to 2022", "32", "Raw", "Character", "CARB"),
+  `NOX Projections` = c("13", "NOX Emissions", "Tons per Day", "2018 to 2022", "32", "Raw", "Character", "CARB"),
   
   #Column 8
-  `VehicleNumber.Fuel Dataset` = c("10", "Vehicles", "Vehicle", "2018 to 2022", "5", "Processed", "Numeric", "N/A"), 
+  `VehicleNumber.Fuel` = c("10", "Vehicles", "Vehicle", "2018 to 2022", "5", "Processed", "Numeric", "N/A"), 
   
   #Column 9
-  `COT Dataset`= c("22", "COT Emissions", "Tons per Day", "2018 to 2022", "5", "Processed", "Numeric", "N/A"), 
+  `COT`= c("22", "COT Emissions", "Tons per Day", "2018 to 2022", "5", "Processed", "Numeric", "N/A"), 
   
   #Column 10
-  `NOX Dataset`= c("22", "NOX Emissions", "Tons per Day", "2018 to 2022", "5", "Processed", "Numeric", "N/A")
+  `NOX`= c("22", "NOX Emissions", "Tons per Day", "2018 to 2022", "5", "Processed", "Numeric", "N/A")
 )
 
-knitr::kable(
-  Data_Summary, 
-  caption = "Dataset Description"
-)
-
-kable(Data_Summary, caption = "Dataset Description") %>%
-  kableExtra::kable_styling(latex_options = c("scale_down","HOLD_position"))
+kable(Data_Summary1)
+kable(Data_Summary2)
 ```
 
 \newpage
