@@ -4,7 +4,7 @@ ENV 872 Final Project
 ## Summary
 This repository is designed for the course final project of ENV872. The group members are Shidi Dai, Soumya Mathew, and Yuxuan Tian. This study examines the number and types of on road motor vehicles that are most responsible for California's carbon monoxide and nitrogen oxide emissions over the course of 5 years (2018–2022). This repository contains folders including raw data, processed data and data analysis.  
 
-## Investigators
+# Investigators
 Shidi Dai, Soumya Mathew, Yuxuan Tian
 
 ## Keywords
@@ -44,18 +44,18 @@ Emission Projections by Oxide of Nitrogen
 - Year: 2018, 2019, 2020, 2021, 2022
 
 ## Scripts and code
-#Technology used
+### Technology used
   R
-#Setup/Installation Requirements
+### Setup/Installation Requirements
 - Clone this repository to your R studio
 - Open "Dai,Mathew,Tian_ENV872_Project.Rmd"
 - install.packages("tidyverse"/"lubridate"/"trend"/"zoo"/"reshape2"/"reshape")
   R
-#Import dataset
+### Import dataset
 Since the datasets locate in the repository, simply run the following line could extract the dataset concerned. 
  carbon <- read.csv("Data/Raw/Carbon_Monoxide.csv", stringsAsFactors = TRUE)
  
-#Data wrangling
+## Data wrangling
 The team clean up the dataset and generate new datasets for further analysis. The original datasets pulled from the website are stored in the folder named "raw_data". The datasets generated are in the folder named "processed_data."
 
 - Find and combine vehicle numbers from different year data set and categorize with different fuel
@@ -99,7 +99,7 @@ The team clean up the dataset and generate new datasets for further analysis. Th
 - Change the variable types 
   COT.gas$`LIGHT DUTY PASSENGER (LDA)` <- as.numeric(COT.gas$`LIGHT DUTY PASSENGER (LDA)`)
 
-#Analysis
+## Analysis
 - Trend analysis #1 
   - Number of cars changes over the years with plots
     - Only gasoline fueled
@@ -154,11 +154,3 @@ The team clean up the dataset and generate new datasets for further analysis. Th
   summary(reg6)
  
 **This project followed ENV 872 class practices and weekly assignments.** 
-
-## Quality assurance/quality control
-
-<https://www.dataone.org/best-practices/develop-quality-assurance-and-quality-control-plan>
-<https://www.dataone.org/best-practices/ensure-basic-quality-control>
-<https://www.dataone.org/best-practices/communicate-data-quality>
-<https://www.dataone.org/best-practices/identify-outliers>
-<https://www.dataone.org/best-practices/identify-values-are-estimated>
